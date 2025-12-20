@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './navbar.css';
 
 const Navbar = () => {
@@ -28,21 +29,21 @@ const Navbar = () => {
                 <div className={isMobileMenuOpen ? "nav-menu active" : "nav-menu"}>
                     <div className="navbar-center">
                         <ul className="nav-links">
-                            <li><a href="#about" className="nav-link active" onClick={toggleMenu}>About Us</a></li>
-                            <li><a href="#int-hub" className="nav-link" onClick={toggleMenu}>Intelligence Hub</a></li>
-                            <li><a href="#empower-ai" className="nav-link" onClick={toggleMenu}>Empower Tech & AI</a></li>
-                            <li><a href="#pharma-academy" className="nav-link" onClick={toggleMenu}>Pharma Empower Academy</a></li>
-                            <li><a href="#professional-network" className="nav-link" onClick={toggleMenu}>Professional Network</a></li>
+                            <li><a href="/#about" className="nav-link" onClick={toggleMenu}>About Us</a></li>
+                            <li><a href="/#int-hub" className="nav-link" onClick={toggleMenu}>Intelligence Hub</a></li>
+                            <li><a href="/#empower-ai" className="nav-link" onClick={toggleMenu}>Empower Tech & AI</a></li>
+                            <li><Link to="/academy" className="nav-link" onClick={toggleMenu}>Pharma Empower Academy</Link></li>
+                            <li><Link to="/network" className="nav-link" onClick={toggleMenu}>Professional Network</Link></li>
                             {/* Mobile specific Contact Link */}
-                            <li className="mobile-only"><a href="#contact-us" className="nav-link" onClick={toggleMenu}>Contact Us</a></li>
+                            <li className="mobile-only"><Link to="/contact-us" className="nav-link" onClick={toggleMenu}>Contact Us</Link></li>
                         </ul>
                     </div>
 
                     <div className="navbar-right">
                         <ul className="utility-links">
-                            <li className="desktop-only"><a href="#contact-us" className="utility-link">Contact Us</a></li>
-                                {/* <li><a href="#global" className="utility-link">GLOBAL</a></li>
-                                <li><a href="#search" className="utility-link">SEARCH</a></li> */}
+                            <li className="desktop-only"><Link to="/contact-us" className="utility-link contact-btn">Contact Us</Link></li>
+                            <li className="desktop-only"><a href="#global" className="utility-link">GLOBAL</a></li>
+                            <li className="desktop-only"><a href="#search" className="utility-link">🔍</a></li>
                         </ul>
                     </div>
                 </div>

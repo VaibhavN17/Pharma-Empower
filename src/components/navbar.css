@@ -1,17 +1,20 @@
+/* Navbar Styles - AbbVie Aesthetic */
 .navbar-container {
     background-color: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
-    font-family: 'Roboto', sans-serif;
+    /* Clean white, no top border as per image */
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    /* Very subtle shadow */
 }
 
 .navbar-content {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
-    height: 80px;
+    padding: 0 40px;
+    height: 90px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,16 +23,25 @@
 /* Base Styles (Desktop) */
 .navbar-left {
     flex-shrink: 0;
+    margin-right: 60px;
+    /* Space between logo and nav links */
 }
 
 .navbar-logo {
-    font-size: 24px;
-    font-weight: 700;
-    color: #005691;
-    /* AbbVie Blue */
+    font-size: 32px;
+    font-weight: 400;
+    /* AbbVie logo is actually quite thin/custom, but simple look is better than bold gradient */
+    color: #0a2d52;
+    /* Darker Navy Blue */
     text-decoration: none;
-    text-transform: uppercase;
+    letter-spacing: -1px;
+    /* Tighter tracking for logo feeling */
+    display: flex;
+    align-items: center;
 }
+
+/* Removing the dot for strict text match to image style */
+/* .navbar-logo::after { content: ''; ... } removed */
 
 .nav-menu {
     display: flex;
@@ -39,48 +51,105 @@
 }
 
 .navbar-center {
-    flex-grow: 1;
     display: flex;
-    justify-content: center;
+    flex-grow: 1;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 30px;
+    gap: 40px;
+    /* Generous spacing */
+    margin: 0;
+    padding: 0;
 }
 
 .nav-link {
     text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    font-size: 16px;
-    transition: color 0.3s;
+    color: #0a2d52;
+    /* Dark Navy Color */
+    font-weight: 600;
+    font-size: 15px;
+    position: relative;
+    padding: 34px 0;
+    /* Full height touch target */
+    display: block;
+    transition: color 0.2s ease;
 }
 
-.nav-link:hover,
-.nav-link.active {
+/* AbbVie-style Thick Active Line */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 4px;
+    /* Thicker line */
+    bottom: 0;
+    left: 0;
+    background-color: #005691;
+    /* Brighter Blue for accent */
+    transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link:hover {
     color: #005691;
 }
 
 .navbar-right {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
 }
 
 .utility-links {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 30px;
     align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
+/* Utility Links as per image (Icon + Text style simulation) */
 .utility-link {
     text-decoration: none;
-    color: #666;
-    font-size: 14px;
-    font-weight: 500;
+    color: #555;
+    font-size: 13px;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s;
 }
+
+.utility-link:hover {
+    color: #005691;
+}
+
+/* Making the Contact Us button look more like the 'GLOBAL' or 'MORE' utility links in the image, 
+   OR keeping it distinct but cleaner if user prefers. 
+   Given "classy", let's make it a clean text link with an icon or simple outline.
+   Let's stick to the outline pill but thinner and more elegant. */
+.utility-link.contact-btn {
+    border: 1px solid #ccc;
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: #0a2d52;
+}
+
+.utility-link.contact-btn:hover {
+    border-color: #005691;
+    background-color: transparent;
+    color: #005691;
+}
+
 
 /* Mobile & Hamburger Styles */
 .menu-icon {
@@ -90,10 +159,10 @@
 
 .hamburger span {
     display: block;
-    width: 25px;
-    height: 3px;
-    background-color: #333;
-    margin: 5px 0;
+    width: 24px;
+    height: 2px;
+    background-color: #0a2d52;
+    margin: 6px 0;
     transition: all 0.3s ease;
 }
 
@@ -102,10 +171,28 @@
 }
 
 /* Tablet / Mobile Breakpoint */
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1024px) {
     .navbar-content {
         padding: 0 20px;
-        position: relative;
+        height: 70px;
+    }
+
+    .nav-link {
+        padding: 20px 0;
+    }
+
+    .navbar-logo {
+        font-size: 22px;
+        /* Slightly smaller for elegance */
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        /* Ensure gradient persists or adjust for readability */
+        background: linear-gradient(to right, #0a2d52, #005691);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        /* Mobile specific aesthetic touch */
+        text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 5px 0;
     }
 
     .menu-icon {
@@ -117,12 +204,16 @@
         flex-direction: column;
         width: 100%;
         position: absolute;
-        top: 80px;
+        top: 70px;
         left: -100%;
         background-color: #ffffff;
-        transition: all 0.5s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: left 0.4s ease-in-out;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
         padding-bottom: 20px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: calc(100vh - 70px);
+        overflow-y: auto;
     }
 
     .nav-menu.active {
@@ -132,7 +223,7 @@
     .navbar-center,
     .navbar-right {
         width: 100%;
-        text-align: center;
+        display: block;
     }
 
     .nav-links,
@@ -150,16 +241,25 @@
     .nav-link,
     .utility-link {
         display: block;
-        padding: 15px 0;
+        padding: 20px 30px;
+        border-bottom: 1px solid #f5f5f5;
+        font-size: 16px;
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    .utility-link.contact-btn {
+        border: none;
+        border-bottom: 1px solid #f5f5f5;
+        border-radius: 0;
         width: 100%;
-        border-bottom: 1px solid #f0f0f0;
+        padding: 20px 30px;
+        color: #0a2d52;
+        display: block;
     }
 
-    .nav-link:hover {
-        background-color: #f8f9fa;
-    }
-
-    /* Toggle visibility for Contact Us */
     .mobile-only {
         display: block;
     }
@@ -168,9 +268,8 @@
         display: none;
     }
 
-    /* Hamburger Animation */
     .hamburger.open span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 6px);
+        transform: rotate(45deg) translate(6px, 6px);
     }
 
     .hamburger.open span:nth-child(2) {
@@ -178,6 +277,6 @@
     }
 
     .hamburger.open span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -6px);
+        transform: rotate(-45deg) translate(6px, -6px);
     }
 }

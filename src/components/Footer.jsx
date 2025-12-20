@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
@@ -28,11 +29,6 @@ const Footer = () => {
 
             {/* Main Footer Content */}
             <div className="footer-main">
-                {/* Top part of footer main - Logo or other links if kept, but user focused on "end of footer" layout. 
-            We will keep the logo/links but restructure the bottom part as requested. 
-            Actually, based on "end of footer should look like this", I should probably split the bottom bar.
-        */}
-
                 <div className="footer-content-top">
                     <div className="footer-logo">
                         PHARMA EMPOWER SOLUTIONS
@@ -55,11 +51,11 @@ const Footer = () => {
                     </div>
 
                     <div className="footer-bottom-right">
-                        <a href="#privacy">Privacy Policy</a>
+                        <Link to="/privacy-policy">Privacy Policy</Link>
+                        {/* <span className="separator">•</span> */}
+                        {/* <a href="#terms">Terms of Service</a>
                         <span className="separator">•</span>
-                        <a href="#terms">Terms of Service</a>
-                        <span className="separator">•</span>
-                        <a href="#cookie">Cookie Policy</a>
+                        <a href="#cookie">Cookie Policy</a> */}
                     </div>
                 </div>
 
