@@ -8,8 +8,9 @@ import ProfessionalNetwork from './components/forums/ProfessionalNetwork';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import About from './components/About/About';
 import EmpowerTechAI from './components/EmpowerTechAI/EmpowerTechAI';
+import Login from './components/Login/Login';
 import './App.css';
-// import EmpowerTechAI from './components/EmpowerTechAI/EmpowerTechAI';
+
 function App() {
   return (
     <Router>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/academy" element={<PharmaAcademy />} />
           <Route path="/network" element={<ProfessionalNetwork />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
       </div>

@@ -1,22 +1,11 @@
 import React, { useState } from 'react';
 import './Forums.css';
 
+import { Link } from 'react-router-dom';
+
 const ProfessionalNetwork = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [credentials, setCredentials] = useState({ email: '', password: '' });
-
-    const handleLogin = (e) => {
-        e.preventDefault();
-        if (credentials.email && credentials.password) {
-            setIsLoggedIn(true);
-        } else {
-            alert("Please enter credentials to continue.");
-        }
-    };
-
-    const handleChange = (e) => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    };
+    // Check global login state from localStorage
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
 
     if (!isLoggedIn) {
         return (
@@ -26,33 +15,17 @@ const ProfessionalNetwork = () => {
                         <h2>Professional Network</h2>
                         <p>Forums & Executive Connect</p>
                     </div>
-                    <form onSubmit={handleLogin} className="network-login-form">
-                        <div className="form-field">
-                            <label>Email Address</label>
-                            <input
-                                type="email"
-                                name="email"
-                                value={credentials.email}
-                                onChange={handleChange}
-                                placeholder="name@company.com"
-                                required
-                            />
-                        </div>
-                        <div className="form-field">
-                            <label>Password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                value={credentials.password}
-                                onChange={handleChange}
-                                placeholder="••••••••"
-                                required
-                            />
-                        </div>
-                        <button type="submit" className="network-login-btn">
-                            Log In to Network
-                        </button>
-                    </form>
+
+                    <div className="login-prompt-content">
+                        <p className="access-message-network">
+                            Connect with industry leaders and access exclusive forums.
+                        </p>
+
+                        <Link to="/login" className="login-redirect-btn-network">
+                            Login to Access / Join Network
+                        </Link>
+                    </div>
+
                     <p className="login-note">
                         Restricted access for verified professionals only.
                     </p>

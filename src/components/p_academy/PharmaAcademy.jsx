@@ -3,22 +3,12 @@ import './PharmaAcademy.css';
 import { Link } from 'react-router-dom';
 
 const PharmaAcademy = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [credentials, setCredentials] = useState({ username: '', password: '' });
+    // Check global login state from localStorage
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        // Simulation of login - accept any input for now
-        if (credentials.username && credentials.password) {
-            setIsLoggedIn(true);
-        } else {
-            alert("Please enter any username and password to proceed.");
-        }
-    };
-
-    const handleChange = (e) => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    };
+    // Listen for storage changes in case login happens in another tab/window
+    // In strict SPA navigation, a simple check on mount + re-check on focus/navigation is usually needed
+    // But for this simple implementation, initial state is key.
 
     if (!isLoggedIn) {
         return (
@@ -28,32 +18,17 @@ const PharmaAcademy = () => {
                         <h2>Pharma Empower Academy</h2>
                         <p>Unlock Your Potential</p>
                     </div>
-                    <form onSubmit={handleLogin} className="login-form">
-                        <div className="input-group">
-                            <input
-                                type="text"
-                                name="username"
-                                placeholder="Username"
-                                value={credentials.username}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="input-group">
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                value={credentials.password}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <button type="submit" className="login-btn">
-                            Enter Academy
-                            <span className="btn-icon">→</span>
-                        </button>
-                    </form>
+
+                    <div className="login-prompt-content">
+                        <p className="access-message">
+                            Join elite professionals in mastering the future of pharmaceutical excellence.
+                        </p>
+
+                        <Link to="/login" className="login-redirect-btn">
+                            Login to Enroll / Access Courses
+                        </Link>
+                    </div>
+
                     <div className="login-footer">
                         <p>Restricted Access - Transformation Ahead</p>
                     </div>

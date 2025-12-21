@@ -131,16 +131,17 @@ const Navbar = () => {
                             </li>
 
                             <li><Link to="/network" className="nav-link" onClick={toggleMenu}>Professional Network</Link></li>
+                            <li><a href="#skill-board" className="nav-link" onClick={toggleMenu}>Skill Board</a></li>
+                            <li><Link to="/contact-us" className="nav-link" onClick={toggleMenu}>Contact Us</Link></li>
                             {/* Mobile specific Contact Link */}
-                            <li className="mobile-only"><Link to="/contact-us" className="nav-link" onClick={toggleMenu}>Contact Us</Link></li>
+                            <li className="mobile-only"><Link to="/login" className="nav-link" onClick={toggleMenu}>Login / Register</Link></li>
                         </ul>
                     </div>
 
                     <div className="navbar-right">
                         <ul className="utility-links">
                             <li className="desktop-only"><Link to="/contact-us" className="utility-link contact-btn">Contact Us</Link></li>
-                            <li className="desktop-only"><a href="#global" className="utility-link">GLOBAL</a></li>
-                            <li className="desktop-only"><a href="#search" className="utility-link">🔍</a></li>
+                            <li className="desktop-only"><Link to="/login" className="utility-link login-btn-nav">Login / Register</Link></li>
                         </ul>
                     </div>
                 </div>

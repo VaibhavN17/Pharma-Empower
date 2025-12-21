@@ -98,7 +98,8 @@
     outline: none;
 }
 
-.network-login-btn {
+.network-login-btn,
+.login-redirect-btn-network {
     width: 100%;
     padding: 16px;
     background: linear-gradient(to right, #005691, #004473);
@@ -111,9 +112,14 @@
     margin-top: 15px;
     transition: all 0.3s ease;
     text-transform: uppercase;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    box-sizing: border-box;
 }
 
-.network-login-btn:hover {
+.network-login-btn:hover,
+.login-redirect-btn-network:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(0, 86, 145, 0.2);
 }
@@ -123,6 +129,13 @@
     font-size: 0.85rem;
     color: #9aaec1;
     font-style: italic;
+}
+
+.access-message-network {
+    font-size: 1.1rem;
+    color: #5d7a8c;
+    margin-bottom: 25px;
+    font-weight: 600;
 }
 
 /* Dashboard Styles */
