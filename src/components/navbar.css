@@ -2,7 +2,7 @@
 .navbar-container {
     background-color: #ffffff;
     /* Clean white, no top border as per image */
-    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Helvetica Neue', 'Open Sans', Arial, sans-serif;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -68,13 +68,17 @@
     text-decoration: none;
     color: #0a2d52;
     /* Dark Navy Color */
-    font-weight: 600;
+    font-weight: 500;
+    /* Matched to dropdown items */
     font-size: 15px;
+    font-family: 'Helvetica Neue', 'Open Sans', Arial, sans-serif;
+    /* Explicitly set font */
     position: relative;
     padding: 34px 0;
     /* Full height touch target */
     display: block;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
+    /* Changed from color to all to allow font-weight transition attempts */
 }
 
 /* AbbVie-style Thick Active Line */
@@ -82,12 +86,15 @@
     content: '';
     position: absolute;
     width: 0;
-    height: 4px;
+    height: 5px;
     /* Thicker line */
-    bottom: 0;
+    bottom: 25px;
+    /* Moved up to sit closer to text */
     left: 0;
-    background-color: #005691;
-    /* Brighter Blue for accent */
+    background: linear-gradient(90deg, #6ab1e9 0%, #005691 100%);
+    /* Gradient as requested */
+    border-radius: 10px;
+    /* Rounded pill shape */
     transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -98,6 +105,9 @@
 
 .nav-link:hover {
     color: #005691;
+    /* font-weight change removed to prevent wiggle */
+    text-shadow: 0 0 1px #005691, 0 0 0.5px #005691;
+    /* Simulates bold without changing width */
 }
 
 .navbar-right {
@@ -150,6 +160,173 @@
     color: #005691;
 }
 
+
+
+/* Dropdown Styles */
+.nav-item-dropdown {
+    position: static;
+    /* Important: static to let dropdown align with viewport/container */
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+/* Arrow styles removed */
+
+.dropdown-menu {
+    position: fixed;
+    /* Full width */
+    top: 90px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-top: 1px solid #eee;
+    z-index: 1050;
+    display: flex;
+    justify-content: center;
+    padding: 60px 0;
+}
+
+.dropdown-menu.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-content {
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 40px;
+}
+
+.dropdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.dropdown-card {
+    display: flex;
+    flex-direction: row;
+    /* Align side-by-side */
+    align-items: center;
+    justify-content: center;
+    /* keep centered in the grid cell, or 'flex-start' if they want left-aligned */
+    text-align: left;
+    padding: 25px 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    gap: 12px;
+}
+
+.dropdown-card:hover {
+    background-color: #f8fbff;
+    box-shadow: 0 10px 20px rgba(0, 86, 145, 0.08);
+    transform: translateY(-3px);
+    border-color: #e6f0fa;
+}
+
+/* Replaces card-icon */
+.plus-icon {
+    font-size: 24px;
+    font-weight: 300;
+    color: #005691;
+    transition: transform 0.3s;
+    line-height: 1;
+}
+
+.dropdown-card:hover .plus-icon {
+    transform: rotate(90deg);
+    /* Nice interaction */
+}
+
+.card-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: #0a2d52;
+    font-family: 'Helvetica Neue', 'Open Sans', Arial, sans-serif;
+    /* Explicitly set font */
+}
+
+.dropdown-card:hover .card-text {
+    color: #005691;
+    font-weight: 700;
+}
+
+
+/* Mobile adjustments for dropdown */
+@media screen and (max-width: 1024px) {
+    .nav-item-dropdown {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        position: relative;
+    }
+
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-top: none;
+        padding: 0;
+        display: none;
+        /* Controlled by React state via 'visible' class if we kept it, but usually simpler to just stack */
+        background-color: #f9f9f9;
+        transform: none;
+        transition: none;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .dropdown-menu.visible {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .dropdown-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+    }
+
+    .dropdown-card {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 15px;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-icon {
+        margin-bottom: 0;
+        font-size: 24px;
+    }
+
+    .card-text {
+        font-size: 16px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
 
 /* Mobile & Hamburger Styles */
 .menu-icon {
