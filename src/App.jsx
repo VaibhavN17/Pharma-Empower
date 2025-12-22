@@ -9,6 +9,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import About from './components/About/About';
 import EmpowerTechAI from './components/EmpowerTechAI/EmpowerTechAI';
 import Login from './components/Login/Login';
+import SkillBoard from './components/SkillBoard/SkillBoard';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/academy" element={<PharmaAcademy />} />
           <Route path="/network" element={<ProfessionalNetwork />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/skill-board" element={<SkillBoard />} />
         </Routes>
         <Footer />
       </div>

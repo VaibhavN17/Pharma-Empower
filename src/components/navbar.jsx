@@ -91,7 +91,7 @@ const Navbar = () => {
                                 <div className={`dropdown-menu ${activeDropdown === 'tech' ? 'visible' : ''}`}>
                                     <div className="dropdown-content">
                                         <div className="dropdown-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
-                                            <Link to="/empower-tech-ai#skill-board" className="dropdown-card" onClick={closeDropdown}>
+                                            <Link to="/skill-board" className="dropdown-card" onClick={closeDropdown}>
                                                 <span className="plus-icon">+</span><span className="card-text">Dynamic Skill Board</span>
                                             </Link>
                                             <Link to="/empower-tech-ai#emerging-tech" className="dropdown-card" onClick={closeDropdown}>
@@ -131,7 +131,7 @@ const Navbar = () => {
                             </li>
 
                             <li><Link to="/network" className="nav-link" onClick={toggleMenu}>Professional Network</Link></li>
-                            <li><a href="#skill-board" className="nav-link" onClick={toggleMenu}>Skill Board</a></li>
+                            <li><Link to="/skill-board" className="nav-link" onClick={toggleMenu}>Skill Board</Link></li>
                             <li><Link to="/contact-us" className="nav-link" onClick={toggleMenu}>Contact Us</Link></li>
                             {/* Mobile specific Contact Link */}
                             <li className="mobile-only"><Link to="/login" className="nav-link" onClick={toggleMenu}>Login / Register</Link></li>
