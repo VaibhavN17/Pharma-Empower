@@ -9,7 +9,8 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import About from './components/About/About';
 import EmpowerTechAI from './components/EmpowerTechAI/EmpowerTechAI';
 import Login from './components/Login/Login';
-import SkillBoard from './components/EmpowerTechAI/skill';
+import SkillBoard from './components/SkillBoard/SkillBoard';
+import DynamicSkillBoard from './components/EmpowerTechAI/skill';
 import EmergingTech from './components/EmpowerTechAI/emerging-tech';
 import AI from './components/EmpowerTechAI/AI';
 import './App.css';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/network" element={<ProfessionalNetwork />} />
           <Route path="/login" element={<Login />} />
           <Route path="/skill-board" element={<SkillBoard />} />
+          <Route path="/empower/skill" element={<DynamicSkillBoard />} />
           <Route path="/empower/emerging-tech" element={<EmergingTech />} />
           <Route path="/empower/ai" element={<AI />} />
         </Routes>

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './skillBoard.css';
 
 const SkillBoard = () => {
+    const [isLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
+
     // Data for Traditional Career-Level Skills
     const traditionalSkills = [
         {
@@ -181,65 +184,82 @@ const SkillBoard = () => {
                 </div>
             </div>
 
-            {/* Traditional Skills Table Section */}
-            <div className="skill-table-section">
-                <div className="table-group-header">
-                    <h2>Traditional Career-Level Skills & Resources</h2>
-                </div>
-                {traditionalSkills.map((section, index) => (
-                    <div className="table-category" key={index}>
-                        <h3>{section.title}</h3>
-                        <table className="skill-table">
-                            <thead>
-                                <tr>
-                                    <th style={{ width: '50px' }}>#</th>
-                                    <th>Core Skill</th>
-                                    <th>Resource Focus</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {section.data.map((row) => (
-                                    <tr key={row.id}>
-                                        <td>{row.id}</td>
-                                        <td>{row.skill}</td>
-                                        <td>{row.resource}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+            {isLoggedIn ? (
+                <>
+                    {/* Traditional Skills Table Section */}
+                    <div className="skill-table-section">
+                        <div className="table-group-header">
+                            <h2>Traditional Career-Level Skills & Resources</h2>
+                        </div>
+                        {traditionalSkills.map((section, index) => (
+                            <div className="table-category" key={index}>
+                                <h3>{section.title}</h3>
+                                <table className="skill-table">
+                                    <thead>
+                                        <tr>
+                                            <th style={{ width: '50px' }}>#</th>
+                                            <th>Core Skill</th>
+                                            <th>Resource Focus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {section.data.map((row) => (
+                                            <tr key={row.id}>
+                                                <td>{row.id}</td>
+                                                <td>{row.skill}</td>
+                                                <td>{row.resource}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
 
-            {/* Pharma 4.0 Skills Table Section */}
-            <div className="skill-table-section" style={{ backgroundColor: '#fff' }}>
-                <div className="table-group-header">
-                    <h2>AI, Digital, & Robotics (Pharma 4.0) Skills</h2>
-                </div>
-                {pharma40Skills.map((section, index) => (
-                    <div className="table-category" key={index}>
-                        <h3>{section.title}</h3>
-                        <table className="skill-table">
-                            <thead>
-                                <tr>
-                                    <th style={{ width: '50px' }}>#</th>
-                                    <th>Core Skill</th>
-                                    <th>Resource Focus</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {section.data.map((row) => (
-                                    <tr key={row.id}>
-                                        <td>{row.id}</td>
-                                        <td>{row.skill}</td>
-                                        <td>{row.resource}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                    {/* Pharma 4.0 Skills Table Section */}
+                    <div className="skill-table-section" style={{ backgroundColor: '#fff' }}>
+                        <div className="table-group-header">
+                            <h2>AI, Digital, & Robotics (Pharma 4.0) Skills</h2>
+                        </div>
+                        {pharma40Skills.map((section, index) => (
+                            <div className="table-category" key={index}>
+                                <h3>{section.title}</h3>
+                                <table className="skill-table">
+                                    <thead>
+                                        <tr>
+                                            <th style={{ width: '50px' }}>#</th>
+                                            <th>Core Skill</th>
+                                            <th>Resource Focus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {section.data.map((row) => (
+                                            <tr key={row.id}>
+                                                <td>{row.id}</td>
+                                                <td>{row.skill}</td>
+                                                <td>{row.resource}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                </>
+            ) : (
+                /* Login Gate */
+                <div className="skill-login-container">
+                    <div className="skill-login-card">
+                        <h2>Login Required</h2>
+                        <p>
+                            Please login to access the detailed Skill Board resources, including Traditional Career-Level Skills and Pharma 4.0 Skills.
+                        </p>
+                        <Link to="/login" className="skill-login-btn">
+                            Login to Access
+                        </Link>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
