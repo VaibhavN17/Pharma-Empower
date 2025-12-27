@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-const Login = () => {
+const Register = () => {
     const [formData, setFormData] = useState({
         email: '',
-        password: ''
+        password: '',
+        name: ''
     });
     const navigate = useNavigate();
 
@@ -15,13 +16,12 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Simulate login logic
-        localStorage.setItem('isLoggedIn', 'true');
-        // Use email username part if name is not available
-        localStorage.setItem('userName', formData.email.split('@')[0]);
+        // Simulate register logic
+        // In a real app, this would be an API call
+        // For now, we simulate success and redirect to login
 
-        // Redirect to previous page or home
-        navigate(-1);
+        // Redirect to login page
+        navigate('/login');
     };
 
     return (
@@ -29,11 +29,23 @@ const Login = () => {
             <div className="login-container">
                 <div className="login-card">
                     <div className="login-header-section">
-                        <h2>Welcome Back</h2>
-                        <p>Enter your details to access your account</p>
+                        <h2>Create Account</h2>
+                        <p>Join us to unlock exclusive content</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="login-form-global">
+                        <div className="form-group">
+                            <label>Full Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="John Doe"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+
                         <div className="form-group">
                             <label>Email Address</label>
                             <input
@@ -59,15 +71,15 @@ const Login = () => {
                         </div>
 
                         <button type="submit" className="login-submit-btn">
-                            Sign In
+                            Register
                         </button>
                     </form>
 
                     <div className="login-footer-section">
                         <p>
-                            Don't have an account?
-                            <button type="button" className="toggle-btn" onClick={() => navigate('/register')}>
-                                Sign Up
+                            Already have an account?
+                            <button type="button" className="toggle-btn" onClick={() => navigate('/login')}>
+                                Log In
                             </button>
                         </p>
                     </div>
@@ -77,4 +89,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
