@@ -14,8 +14,9 @@ import SkillBoard from './components/SkillBoard/SkillBoard';
 import DynamicSkillBoard from './components/EmpowerTechAI/skill';
 import EmergingTech from './components/EmpowerTechAI/emerging-tech';
 import AI from './components/EmpowerTechAI/AI';
+import './App.css';
 import StudentSession from './components/forums/session';
-// 
+
 import AdminLayout from './components/Admin/AdminLayout';
 import AdminLogin from './components/Admin/AdminLogin';
 import Dashboard from './components/Admin/Dashboard';
@@ -26,46 +27,44 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <div className="App">
-          {/* Navigation and Footer are now handled inside layouts */}
-          <Routes>
-            {/* PUBLIC ROUTES (With Navbar & Footer) */}
-            <Route
-              element={
-                <>
-                  <Navbar />
-                  <Outlet />
-                  <Footer />
-                </>
-              }
-            >
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/empower-tech-ai" element={<EmpowerTechAI />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="/contact-us" element={<ContactUs />} />
-              <Route path="/academy" element={<PharmaAcademy />} />
-              <Route path="/network" element={<ProfessionalNetwork />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/skill-board" element={<SkillBoard />} />
-              <Route path="/empower/skill" element={<DynamicSkillBoard />} />
-              <Route path="/empower/emerging-tech" element={<EmergingTech />} />
-              <Route path="/empower/ai" element={<AI />} />
-              <Route path="/session" element={<StudentSession />} />
-            </Route>
+        {/* Navigation and Footer are now handled inside layouts */}
+        <Routes>
+          {/* PUBLIC ROUTES (With Navbar & Footer) */}
+          <Route
+            element={
+              <>
+                <Navbar />
+                <Outlet />
+                <Footer />
+              </>
+            }
+          >
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/empower-tech-ai" element={<EmpowerTechAI />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/academy" element={<PharmaAcademy />} />
+            <Route path="/network" element={<ProfessionalNetwork />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/skill-board" element={<SkillBoard />} />
+            <Route path="/empower/skill" element={<DynamicSkillBoard />} />
+            <Route path="/empower/emerging-tech" element={<EmergingTech />} />
+            <Route path="/empower/ai" element={<AI />} />
+            <Route path="/session" element={<StudentSession />} />
+          </Route>
 
-            {/* ADMIN ROUTES (No Navbar/Footer, with Sidebar) */}
-            <Route path="/admin/login" element={<AdminLogin />} />
+          {/* ADMIN ROUTES (No Navbar/Footer, with Sidebar) */}
+          <Route path="/admin/login" element={<AdminLogin />} />
 
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="enquiries" element={<Enquiries />} />
-              <Route path="cms" element={<CMSManager />} />
-            </Route>
-          </Routes>
-        </div>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="enquiries" element={<Enquiries />} />
+            <Route path="cms" element={<CMSManager />} />
+          </Route>
+        </Routes>
       </div>
     </Router>
   );
