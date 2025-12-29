@@ -56,12 +56,31 @@ export const inquiryAPI={
   getAllEnquiries:()=>api.get("/enquiries")
 }
 
+// -------- News API-----
+export const newsAPI={
+   getNews: (data) => api.get('/api/news', data)
+}
+
+// ------ Booking Session -------
+
+export const sessionAPI = {
+  createSession: (data) => api.post("/sessions", data),
+  getAllSessions: () => api.get("/sessions"),
+  deleteSession: (id) => api.delete(`/sessions/${id}`)
+};
 
 
 
 // ----------- CONTACT API ---------------
 export const contactAPI = {
-    sendMessage: (data) => api.post('/api/contact', data)
+    sendMessage: (data) => api.post('/api/contact', data),
+    getAll: () => api.get('/api/contact'),
+    markAsRead: (id) => api.put(`/api/contact/${id}/read`)
+};
+
+
+export const dashboardAPI = {
+    getStats: () => api.get('/api/dashboard/stats')
 };
 
 

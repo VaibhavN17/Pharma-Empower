@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import Navbar from './components/navbar';
 import Footer from './components/Footer';
 import Home from './components/Home';
@@ -17,28 +17,57 @@ import AI from './components/EmpowerTechAI/AI';
 import './App.css';
 import StudentSession from './components/forums/session';
 
+import AdminLayout from './components/Admin/AdminLayout';
+import AdminLogin from './components/Admin/AdminLogin';
+import Dashboard from './components/Admin/Dashboard';
+import Enquiries from './components/Admin/Enquiries';
+import News from './components/intelligenceHub/news';
+import AdminSessions from './components/Admin/adminSession';
+
+
 function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        {/* Navigation and Footer are now handled inside layouts */}
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/empower-tech-ai" element={<EmpowerTechAI />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/academy" element={<PharmaAcademy />} />
-          <Route path="/network" element={<ProfessionalNetwork />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/skill-board" element={<SkillBoard />} />
-          <Route path="/empower/skill" element={<DynamicSkillBoard />} />
-          <Route path="/empower/emerging-tech" element={<EmergingTech />} />
-          <Route path="/empower/ai" element={<AI />} />
-          <Route path="/session"   element={<StudentSession/>} />
+          {/* PUBLIC ROUTES (With Navbar & Footer) */}
+          <Route
+            element={
+              <>
+                <Navbar />
+                <Outlet />
+                <Footer />
+              </>
+            }
+          >
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/empower-tech-ai" element={<EmpowerTechAI />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/academy" element={<PharmaAcademy />} />
+            <Route path="/network" element={<ProfessionalNetwork />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/skill-board" element={<SkillBoard />} />
+            <Route path="/empower/skill" element={<DynamicSkillBoard />} />
+            <Route path="/empower/emerging-tech" element={<EmergingTech />} />
+            <Route path="/empower/ai" element={<AI />} />
+            <Route path="/session" element={<StudentSession />} />
+            <Route path='/intelligence-hub/news' element={<News />} />
+          </Route>
+
+          {/* ADMIN ROUTES (No Navbar/Footer, with Sidebar) */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="enquiries" element={<Enquiries />} />
+            <Route path="/admin/sessions"   element={<AdminSessions />} />
+          </Route>
         </Routes>
-        <Footer />
       </div>
     </Router>
   );
