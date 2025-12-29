@@ -21,7 +21,9 @@ import AdminLayout from './components/Admin/AdminLayout';
 import AdminLogin from './components/Admin/AdminLogin';
 import Dashboard from './components/Admin/Dashboard';
 import Enquiries from './components/Admin/Enquiries';
-import CMSManager from './components/Admin/CMS/CMSManager';
+import News from './components/intelligenceHub/news';
+import AdminSessions from './components/Admin/adminSession';
+
 
 function App() {
   return (
@@ -53,6 +55,7 @@ function App() {
             <Route path="/empower/emerging-tech" element={<EmergingTech />} />
             <Route path="/empower/ai" element={<AI />} />
             <Route path="/session" element={<StudentSession />} />
+            <Route path='/intelligence-hub/news' element={<News />} />
           </Route>
 
           {/* ADMIN ROUTES (No Navbar/Footer, with Sidebar) */}
@@ -62,7 +65,7 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="enquiries" element={<Enquiries />} />
-            <Route path="cms" element={<CMSManager />} />
+            <Route path="/admin/sessions"   element={<AdminSessions />} />
           </Route>
         </Routes>
       </div>

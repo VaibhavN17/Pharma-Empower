@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "./studentSession.css";
+import { sessionAPI } from "../../services/api";
+
 
 const StudentSession = () => {
   const [formData, setFormData] = useState({
     fullName: "",
-    email: "",
     topic: "",
     date: "",
-    time: "",
+    phone: "",
   });
 
   const handleChange = (e) => {
@@ -17,30 +18,34 @@ const StudentSession = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { fullName, email, topic, date, time } = formData;
+    const { fullName, topic, date, phone} = formData;
 
-    if (!fullName || !email || !topic || !date || !time) {
+    if (!fullName  || !topic || !date || !phone) {
       alert("All fields are required");
       return;
     }
 
-    console.log("Session Request:", formData);
+    try {
+      const res=await sessionAPI.createSession(formData);
+      console.log(res.data);
+      if(res.message){
+           alert("Session request submitted successfully");
 
-    // 🔗 Later connect backend
-    // await sessionAPI.createSession(formData);
-
-    alert("Session request submitted successfully");
-
-    setFormData({
-      fullName: "",
-      email: "",
-      topic: "",
-      date: "",
-      time: "",
-    });
+        setFormData({
+        fullName: "",
+        topic: "",
+        date: "",
+        phone: "",
+        });
+      }
+    
+    } catch (error) {
+      console.error(error);
+      alert("Failed to submit session");
+    }
   };
 
   return (
@@ -58,10 +63,10 @@ const StudentSession = () => {
           />
 
           <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
+            type="text"
+            name="phone"
+            placeholder="Mobile Number"
+            value={formData.phone}
             onChange={handleChange}
           />
 
@@ -77,13 +82,6 @@ const StudentSession = () => {
             type="date"
             name="date"
             value={formData.date}
-            onChange={handleChange}
-          />
-
-          <input
-            type="time"
-            name="time"
-            value={formData.time}
             onChange={handleChange}
           />
 

@@ -1,0 +1,109 @@
+* {
+  box-sizing: border-box;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+.admin-session-container {
+  padding: 30px;
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+.admin-session-container h2 {
+  margin-bottom: 20px;
+  color: #111827;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* Grid */
+.session-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* Card */
+.session-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.session-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Header */
+.session-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.session-card-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Body */
+.session-card-body p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.session-card-body .topic {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #1f2937;
+  background: #f1f5f9;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Meta */
+.meta {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* Delete */
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  color: #b91c1c;
+  transform: scale(1.1);
+}
+
+/* Empty & Loading */
+.empty,
+.loading {
+  text-align: center;
+  margin-top: 40px;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .admin-session-container {
+    padding: 20px;
+  }
+}

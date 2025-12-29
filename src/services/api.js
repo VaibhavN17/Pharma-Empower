@@ -16,8 +16,8 @@ api.interceptors.request.use((config) => {
 });
 
 export const authAPI = {
-    register: (userData) => api.post('/auth/register', userData),
-    login: (credentials) => api.post('/auth/login', credentials),
+    register: (userData) => api.post('api/auth/register', userData),
+    login: (credentials) => api.post('api/auth/login', credentials),
     create: (data) => api.post("/enquiries", data)
 };
 
@@ -56,6 +56,24 @@ export const inquiryAPI={
   getAllEnquiries:()=>api.get("/enquiries")
 }
 
+
+// ----------- CONTACT API ---------------
+export const contactAPI = {
+    sendMessage: (data) => api.post('/api/contact', data)
+};
+
+// -------- News API-----
+export const newsAPI={
+   getNews: (data) => api.get('/api/news', data)
+}
+
+// ------ Booking Session -------
+
+export const sessionAPI = {
+  createSession: (data) => api.post("/sessions", data),
+  getAllSessions: () => api.get("/sessions"),
+  deleteSession: (id) => api.delete(`/sessions/${id}`)
+};
 
 
 export default api;

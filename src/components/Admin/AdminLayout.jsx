@@ -40,8 +40,12 @@ const AdminLayout = () => {
                     <NavLink to="/admin/enquiries" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"} onClick={() => setIsSidebarOpen(false)}>
                         Enquiries
                     </NavLink>
-                    <NavLink to="/admin/cms" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"} onClick={() => setIsSidebarOpen(false)}>
-                        Website Content
+                    <NavLink
+                       to="/admin/sessions"
+                        className={({ isActive }) =>isActive ? "sidebar-link active" : "sidebar-link"}
+                        onClick={() => setIsSidebarOpen(false)}
+                    >
+                    Sessions
                     </NavLink>
 
                     <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px' }}>

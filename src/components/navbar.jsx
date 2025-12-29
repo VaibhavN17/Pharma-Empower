@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './navbar.css';
 
 const Navbar = () => {
     const [activeDropdown, setActiveDropdown] = useState(null); // 'about', 'intelligence', 'tech', 'academy' or null
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const navigate=useNavigate();
+    const isLoggedIn = !!localStorage.getItem("token");
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("isLoggedIn"); // optional if used elsewhere
+    navigate("/");
+  };
     const toggleMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
@@ -75,7 +83,7 @@ const Navbar = () => {
                                 <div className={`dropdown-menu ${activeDropdown === 'intelligence' ? 'visible' : ''}`}>
                                     <div className="dropdown-content">
                                         <div className="dropdown-grid" style={{ gridTemplateColumns: 'repeat(1, 1fr)', maxWidth: '400px', margin: '0 auto' }}>
-                                            <Link to="/intelligence-hub#news" className="dropdown-card" onClick={closeDropdown}>
+                                            <Link to="/intelligence-hub/news" className="dropdown-card" onClick={closeDropdown}>
                                                 <span className="plus-icon">+</span><span className="card-text">News</span>
                                             </Link>
                                         </div>
@@ -134,14 +142,14 @@ const Navbar = () => {
                             <li><Link to="/skill-board" className="nav-link" onClick={toggleMenu}>Skill Board</Link></li>
                             {/* <li><Link to="/contact-us" className="nav-link" onClick={toggleMenu}>Contact Us</Link></li> */}
                             {/* Mobile specific Contact Link */}
-                            <li className="mobile-only"><Link to="/login" className="nav-link" onClick={toggleMenu}>Login / Register</Link></li>
+                            {isLoggedIn ? <li className='mobile-only'><span onClick={handleLogout}>Logout</span></li> : <li className="mobile-only"><Link to="/login" className="nav-link" onClick={toggleMenu}>SignIn</Link></li>}
                         </ul>
                     </div>
 
                     <div className="navbar-right">
                         <ul className="utility-links">
                             <li className="desktop-only"><Link to="/contact-us" className="utility-link contact-btn">Contact Us</Link></li>
-                            <li className="desktop-only"><Link to="/login" className="utility-link login-btn-nav">Login / Register</Link></li>
+                        {isLoggedIn ? <li className='desktop-only'><span onClick={handleLogout}>Logout</span></li> :  <li className="desktop-only"><Link to="/login" className="utility-link login-btn-nav">SignIn</Link></li>}
                         </ul>
                     </div>
                 </div>

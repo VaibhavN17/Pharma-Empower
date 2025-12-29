@@ -2,13 +2,15 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
-
+// ✅ start cron jobs
+require("./services/pharmaNewsCron");
 
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
-
-
+const contactRoutes=require("./routes/contactRoutes");
+const newsRoutes=require("./routes/newsRoutes");
+const sessionRoutes=require("./routes/sessionRoutes")
 // Import database
 const pool = require('./config/db');
 
@@ -30,16 +32,16 @@ pool.getConnection()
     });
 
 
+
 // Routes
-
-app.use('/api/auth', authRoutes);
-
-
+app.use('/api/auth',authRoutes);
+app.use('/api/contact',contactRoutes);
+app.use("/api/news",newsRoutes);
+app.use("/sessions",sessionRoutes);
 
 const PORT = process.env.PORT || 5000;
+
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
-
-
