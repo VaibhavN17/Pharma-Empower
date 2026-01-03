@@ -157,3 +157,133 @@
     transform: translateY(0);
   }
 }
+
+/* =========================================
+   SINGLE PAGE LAYOUT FOR EMERGING TECH
+   ========================================= */
+
+.emerging-tech-page {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.et-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1400px;
+  height: 90%;
+  gap: 40px;
+  padding: 20px;
+}
+
+/* LEFT SIDE: HERO */
+.et-hero {
+  flex: 1;
+  max-width: 450px;
+  text-align: left;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.et-hero h1 {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.et-subtitle {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-family: var(--font-heading);
+}
+
+.et-description {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* RIGHT SIDE: CONTENT Grid */
+.et-content {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 100%;
+}
+
+.et-heading {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 2rem;
+  color: #071D49;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.compact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.compact-grid .tech-card {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.compact-grid .tech-card:hover {
+  background: #ffffff;
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(7, 29, 73, 0.1);
+  border-color: var(--accent-color);
+}
+
+.compact-grid .tech-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.compact-grid .tech-card p {
+  font-size: 0.9rem;
+  color: #4a5568;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .et-layout {
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+    padding-top: 100px;
+  }
+
+  .emerging-tech-page {
+    height: auto;
+    overflow-y: auto;
+    padding-bottom: 50px;
+  }
+
+  .et-hero {
+    text-align: center;
+    max-width: 100%;
+  }
+}

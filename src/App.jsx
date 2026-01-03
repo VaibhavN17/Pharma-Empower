@@ -25,10 +25,13 @@ import News from './components/intelligenceHub/news';
 import AdminSessions from './components/Admin/adminSession';
 
 
+import DNAAnimation from './components/DNAAnimation';
+
 function App() {
   return (
     <Router>
       <div className="App">
+        <DNAAnimation />
         {/* Navigation and Footer are now handled inside layouts */}
         <Routes>
           {/* PUBLIC ROUTES (With Navbar & Footer) */}

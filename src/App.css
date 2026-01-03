@@ -32,8 +32,8 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     position: relative;
-    background-color: #f8f9fa;
-    /* Light fallback */
+    background-color: transparent;
+    /* Moved color to ::before to allow z-index layering */
 }
 
 /* Subtle Pattern Overlay */
@@ -44,11 +44,13 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: #f8f9fa;
+    /* Base color here */
     background-image: url('./images/pattern-bg.png');
     background-repeat: repeat;
     background-size: 400px;
-    opacity: 0.05;
-    /* Verify much fainter to not distract */
+    opacity: 0.5;
+    /* Opacity handled by image/color blend if needed, or set distinct opacity for pattern */
     z-index: -2;
     pointer-events: none;
 }
@@ -487,7 +489,7 @@ body::before {
     width: 100%;
     height: 100%;
     z-index: -1;
-    /* Behind everything */
+    /* Behind content but in front of background */
     pointer-events: none;
     display: flex;
     justify-content: center;
