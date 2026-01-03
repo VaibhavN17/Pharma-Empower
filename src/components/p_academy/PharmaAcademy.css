@@ -343,6 +343,16 @@
     }
 }
 
+@media (max-width: 600px) {
+    .stages-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stage-card:last-child:nth-child(odd) {
+        grid-column: span 1;
+    }
+}
+
 @media (max-width: 768px) {
     .academy-hero {
         padding: 60px 20px 40px;
