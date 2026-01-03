@@ -30,8 +30,8 @@
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #f4f8fa 0%, #e6eff5 100%);
-    font-family: 'Open Sans', sans-serif;
-    color: #0a2d52;
+    font-family: var(--font-main);
+    color: var(--primary-color);
 }
 
 .network-login-card {
@@ -101,7 +101,7 @@
 .network-login-btn {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(to right, #005691, #004473);
+    background: linear-gradient(to right, #0066F5, #004BB5);
     color: white;
     border: none;
     font-size: 1.05rem;
@@ -134,7 +134,7 @@
 }
 
 .network-hero {
-    background: linear-gradient(135deg, #0a2d52 0%, #001f3f 100%);
+    background: linear-gradient(135deg, #071D49 0%, #051535 100%);
     color: white;
     padding: 100px 20px;
     text-align: center;
@@ -224,7 +224,7 @@
     padding: 50px;
     border-left: 0;
     /* Removing border for cleaner shadow look */
-    border-top: 5px solid #005691;
+    border-top: 5px solid var(--secondary-color);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
     border-radius: 8px;
@@ -301,13 +301,13 @@
 }
 
 .blue-card {
-    border-top-color: #005691;
+    border-top-color: var(--secondary-color);
     background: #ffffff;
 }
 
 .navy-card {
-    background-color: #0a2d52;
-    border-top-color: #00bcd4;
+    background-color: var(--primary-color);
+    border-top-color: var(--accent-color);
     color: white;
 }
 

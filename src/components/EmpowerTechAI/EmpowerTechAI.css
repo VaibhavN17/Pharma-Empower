@@ -6,7 +6,7 @@
 
 /* HERO */
 .hero-section {
-  background: linear-gradient(135deg, #0f2a44, #1f4fa3);
+  background: linear-gradient(135deg, #071D49, #0066F5);
   color: white;
   padding: 80px 20px;
   text-align: center;
@@ -38,7 +38,7 @@
 .content-section h2 {
   font-size: 28px;
   margin-bottom: 30px;
-  color: #1f4fa3;
+  color: var(--primary-color);
 }
 
 /* SKILL BOARD */
@@ -78,7 +78,7 @@
 
 .tech-card h3 {
   margin-bottom: 10px;
-  color: #1f4fa3;
+  color: var(--primary-color);
 }
 
 /* AI SECTION */
@@ -133,7 +133,7 @@
 .empower-login-btn {
   display: inline-block;
   padding: 14px 28px;
-  background: linear-gradient(to right, #005691, #003d66);
+  background: linear-gradient(to right, #0066F5, #004BB5);
   color: white;
   text-decoration: none;
   border-radius: 6px;

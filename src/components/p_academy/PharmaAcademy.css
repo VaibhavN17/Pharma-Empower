@@ -4,8 +4,8 @@
 .academy-page {
     background-color: #f9fafb;
     /* Soft gray-white */
-    font-family: 'Helvetica Neue', 'Open Sans', Arial, sans-serif;
-    color: #333;
+    font-family: var(--font-main);
+    color: var(--text-dark);
     padding-bottom: 80px;
     overflow-x: hidden;
 }
@@ -30,10 +30,10 @@
 .academy-hero h1 {
     font-size: 2.8rem;
     /* Slightly smaller for elegance */
-    color: #0a2d52;
+    color: var(--primary-color);
     /* Matching Navbar Navy */
     margin-bottom: 20px;
-    font-weight: 600;
+    font-weight: 700;
     /* Reduced from 800 */
     line-height: 1.3;
     max-width: 900px;
@@ -55,7 +55,7 @@
 
 .hero-login-btn {
     display: inline-block;
-    background-color: #d90429;
+    background-color: var(--primary-color);
     /* Classy solid red */
     color: white;
     padding: 14px 36px;
@@ -98,7 +98,7 @@
 .section-title {
     text-align: center;
     font-size: 2.2rem;
-    color: #0a2d52;
+    color: var(--primary-color);
     margin-bottom: 50px;
     font-weight: 600;
     position: relative;
@@ -156,7 +156,7 @@
 }
 
 .blue-border::before {
-    background: #005691;
+    background: #0066F5;
 }
 
 .purple-border::before {
