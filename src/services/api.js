@@ -60,7 +60,6 @@ export const inquiryAPI={
 export const newsAPI={
    getNews: (data) => api.get('/api/news', data)
 }
-
 // ------ Booking Session -------
 
 export const sessionAPI = {

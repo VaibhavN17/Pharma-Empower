@@ -1,3 +1,4 @@
+
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -34,13 +35,12 @@ pool.getConnection()
     });
 
 
-
 // Routes
 
 app.use('/api/auth', authRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/admin/dashboard', dashboardRoutes);
-
+app.use("/api/news",newsRoutes);
 
 
 
