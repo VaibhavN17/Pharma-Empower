@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// ✅ Render backend URL
-const API_BASE_URL = 'https://your-backend-url.onrender.com';
+// ✅ REAL Render backend URL + /api
+const API_BASE_URL = 'https://pharma-empowerr.onrender.com/';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -18,8 +18,8 @@ api.interceptors.request.use((config) => {
 
 // ---------- AUTH ----------
 export const authAPI = {
-  register: (userData) => api.post('/api/auth/register', userData),
-  login: (credentials) => api.post('/api/auth/login', credentials),
+  register: (userData) => api.post('/auth/register', userData),
+  login: (credentials) => api.post('/auth/login', credentials),
 };
 
 // ---------- VIDEO ----------
@@ -56,7 +56,7 @@ export const inquiryAPI = {
 
 // ---------- NEWS ----------
 export const newsAPI = {
-  getNews: () => api.get('/api/news'),
+  getNews: () => api.get('/news'),
 };
 
 // ---------- SESSION ----------
@@ -68,14 +68,14 @@ export const sessionAPI = {
 
 // ---------- CONTACT ----------
 export const contactAPI = {
-  sendMessage: (data) => api.post('/api/contact', data),
-  getAll: () => api.get('/api/contact'),
-  markAsRead: (id) => api.put(`/api/contact/${id}/read`),
+  sendMessage: (data) => api.post('/contact', data),
+  getAll: () => api.get('/contact'),
+  markAsRead: (id) => api.put(`/contact/${id}/read`),
 };
 
 // ---------- DASHBOARD ----------
 export const dashboardAPI = {
-  getStats: () => api.get('/api/admin/dashboard'),
+  getStats: () => api.get('/admin/dashboard'),
 };
 
 export default api;
