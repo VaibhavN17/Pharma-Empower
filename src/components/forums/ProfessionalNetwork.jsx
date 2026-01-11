@@ -32,14 +32,40 @@ const NetworkCard = ({ icon, title, description, link, linkText, isHighlight, is
 };
 
 const ProfessionalNetwork = () => {
+
+    // CMS LOGIC
+    const [headerContent, setHeaderContent] = useState({
+        title: 'Professional Network',
+        subtitle: 'Connect with peers, mentors, and industry leaders.',
+        bgImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80'
+    });
+
+    React.useEffect(() => {
+        const saved = localStorage.getItem('site_full_content');
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed.network) {
+                setHeaderContent(prev => ({ ...prev, ...parsed.network.hero }));
+            }
+        }
+    }, []);
+
     return (
         <div className="network-page-single">
             <div className="network-layout">
                 {/* TOP HERO PANEL */}
-                <div className="network-hero-panel">
-                    <h1>Professional Network</h1>
+                <div
+                    className="network-hero-panel"
+                    style={{
+                        backgroundImage: `linear-gradient(rgba(10, 45, 82, 0.9), rgba(10, 45, 82, 0.8)), url(${headerContent.bgImage})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        color: 'white'
+                    }}
+                >
+                    <h1>{headerContent.title}</h1>
                     <p className="network-subtitle tagline-animate">
-                        Learn, connect, and stay compliant in one place
+                        {headerContent.subtitle}
                     </p>
                     <div className="network-hero-divider"></div>
                     <p className="network-description">

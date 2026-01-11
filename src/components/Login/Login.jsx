@@ -16,27 +16,28 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try{
-        const res=await authAPI.login(formData)
-        if(res.data){
-           localStorage.setItem('isLoggedIn', 'true');
-            
-           // Store token and user data
-           localStorage.setItem('token', res.data.token);
-           localStorage.setItem('user', JSON.stringify(res.data.user));
-         
-           // Redirect based on role
-          if (res.data.user.role === 'admin') {
-           navigate('/admin/dashboard');
-          }
-           else{ 
-            navigate("/")
-           }
-           
-        }}catch(err){
-           console.log(err.message);
+        try {
+            const res = await authAPI.login(formData)
+            if (res.data) {
+                localStorage.setItem('isLoggedIn', 'true');
+
+                // Store token and user data
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('user', JSON.stringify(res.data.user));
+
+                // Redirect based on role
+                if (res.data.user.role === 'admin') {
+                    navigate('/admin/dashboard');
+                }
+                else {
+                    navigate("/")
+                }
+
+            }
+        } catch (err) {
+            console.log(err.message);
         }
-  
+
     };
 
     return (

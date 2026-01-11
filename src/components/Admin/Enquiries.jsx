@@ -63,55 +63,56 @@ const Enquiries = () => {
                     />
                 </div>
 
-                <table className="data-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Subject</th>
-                            <th>Message</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredEnquiries.map(enq => (
-                            <tr key={enq.id}>
-                                <td>{enq.name}</td>
-                                <td>{enq.email}</td>
-                                <td>{enq.subject}</td>
-                                <td>{enq.message.substring(0, 30)}...</td>
-                                <td>{new Date(enq.created_at).toLocaleDateString()}</td>
-                                <td>
-                                    <span
-                                        className={`badge ${
-                                            enq.status === 'New'
-                                                ? 'badge-new'
-                                                : 'badge-read'
-                                        }`}
-                                    >
-                                        {enq.status}
-                                    </span>
-                                </td>
-                                <td>
-                                    <button
-                                        style={{
-                                            cursor: 'pointer',
-                                            border: 'none',
-                                            background: 'none',
-                                            color: '#1a237e',
-                                            fontWeight: '600'
-                                        }}
-                                        onClick={() => handleView(enq)}
-                                    >
-                                        View
-                                    </button>
-                                </td>
+                <div className="table-responsive">
+                    <table className="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {filteredEnquiries.map(enq => (
+                                <tr key={enq.id}>
+                                    <td>{enq.name}</td>
+                                    <td>{enq.email}</td>
+                                    <td>{enq.subject}</td>
+                                    <td>{enq.message.substring(0, 30)}...</td>
+                                    <td>{new Date(enq.created_at).toLocaleDateString()}</td>
+                                    <td>
+                                        <span
+                                            className={`badge ${enq.status === 'New'
+                                                    ? 'badge-new'
+                                                    : 'badge-read'
+                                                }`}
+                                        >
+                                            {enq.status}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button
+                                            style={{
+                                                cursor: 'pointer',
+                                                border: 'none',
+                                                background: 'none',
+                                                color: '#1a237e',
+                                                fontWeight: '600'
+                                            }}
+                                            onClick={() => handleView(enq)}
+                                        >
+                                            View
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             {/* ===== VIEW MODAL ===== */}

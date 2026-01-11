@@ -1,5 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
+import { LogOut, LayoutDashboard, Users, UserPlus, FileText, Calendar, Bell } from 'lucide-react';
 import './Admin.css';
 
 const AdminLayout = () => {
@@ -41,11 +43,25 @@ const AdminLayout = () => {
                         Enquiries
                     </NavLink>
                     <NavLink
-                       to="/admin/sessions"
-                        className={({ isActive }) =>isActive ? "sidebar-link active" : "sidebar-link"}
+                        to="/admin/sessions"
+                        className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}
                         onClick={() => setIsSidebarOpen(false)}
                     >
-                    Sessions
+                        Sessions
+                    </NavLink>
+                    <NavLink
+                        to="/admin/notifications"
+                        className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}
+                        onClick={() => setIsSidebarOpen(false)}
+                    >
+                        Notifications
+                    </NavLink>
+                    <NavLink
+                        to="/admin/content"
+                        className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}
+                        onClick={() => setIsSidebarOpen(false)}
+                    >
+                        Content
                     </NavLink>
 
                     <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px' }}>

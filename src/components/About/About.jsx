@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Rocket, Heart, Target, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Rocket, Heart, Target, ChevronRight, Eye } from 'lucide-react';
 import Principles from './Principles';
 import Mission from './Mission';
 import Value from './Value';
@@ -8,123 +8,104 @@ import aboutHeroImg from '../../images/about_hero.png';
 import './About.css';
 
 const About = () => {
-
-  // ... (existing state and openModal logic remains same)
-
-  const [activeModal, setActiveModal] = useState(null);
+  // CMS LOGIC
+  const [pageContent, setPageContent] = useState({
+    hero: {
+      title: 'About Us',
+      subtitle: 'Dedicated to advancing the pharmaceutical profession through innovation and community.',
+      bgImage: 'https://images.unsplash.com/photo-1555617766-c94804975da3?auto=format&fit=crop&q=80'
+    },
+    details: {
+      mission: 'To empower every pharma professional with the tools and knowledge they need.',
+      vision: 'A connected global community driving healthcare forward.'
+    }
+  });
 
   useEffect(() => {
+    const saved = localStorage.getItem('site_full_content');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.about) {
+        setPageContent(prev => ({
+          hero: { ...prev.hero, ...parsed.about.hero },
+          details: { ...prev.details, ...parsed.about.details }
+        }));
+      }
+    }
     window.scrollTo(0, 0);
   }, []);
 
-  const openModal = (type) => {
-    setActiveModal(type);
-    document.body.style.overflow = 'hidden';
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
-
-  const closeModal = () => {
-    setActiveModal(null);
-    document.body.style.overflow = 'auto';
-  };
-
-  useEffect(() => {
-    const handleEsc = (e) => e.key === 'Escape' && closeModal();
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, []);
 
   return (
-    <div className="about-landing">
+    <div className="about-page">
 
-      {/* =========================
-          HERO TAGLINE (CARD LAYOUT)
-      ========================== */}
-      <div className="about-hero">
-        <div className="about-hero-card fade-in-up">
-          <div className="hero-text-content">
-            <h1 className="about-tagline">
-              Empowering people through <br />
-              <span className="highlight-text">
-                open knowledge
-              </span>
-            </h1>
-          </div>
-          <div className="hero-image-content">
-            <img src={aboutHeroImg} alt="Pharma Collaboration" className="about-hero-img" />
-          </div>
+      {/* HER0 SECTION */}
+      <div
+        className="about-hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${pageContent.hero.bgImage})`
+        }}
+      >
+        <div className="hero-content">
+          <h1>{pageContent.hero.title}</h1>
+          <p>{pageContent.hero.subtitle}</p>
         </div>
       </div>
 
-      {/* =========================
-          OUR PRINCIPLES (CENTERED)
-      ========================== */}
-      <div className="about-principles-container fade-in-up delay-1">
-        <Principles />
-      </div>
-
-      {/* =========================
-          CTA NAV BUTTONS
-      ========================== */}
-      <div className="about-nav-container fade-in-up delay-2">
-
-        <div className="about-nav-card" onClick={() => openModal('mission')}>
-          <div className="card-icon-wrapper">
-            <Rocket size={32} />
-          </div>
-          <div className="card-content">
+      {/* NAVIGATION CARDS */}
+      <div className="about-nav-container">
+        <div className="nav-cards">
+          <div className="nav-card" onClick={() => scrollToSection('mission')}>
+            <Target className="card-icon" />
             <h3>Our Mission</h3>
-            <span className="card-subtext">Accelerating Talent</span>
+            <p>Driving excellence in pharma education</p>
           </div>
-          <ChevronRight className="nav-arrow" size={20} />
+          <div className="nav-card" onClick={() => scrollToSection('vision')}>
+            <Eye className="card-icon" />
+            <h3>Our Vision</h3>
+            <p>Shaping the future of healthcare</p>
+          </div>
+          <div className="nav-card" onClick={() => scrollToSection('values')}>
+            <Heart className="card-icon" />
+            <h3>Core Values</h3>
+            <p>Integrity, Innovation, Impact</p>
+          </div>
         </div>
-
-        <div className="about-nav-card" onClick={() => openModal('values')}>
-          <div className="card-icon-wrapper">
-            <Heart size={32} />
-          </div>
-          <div className="card-content">
-            <h3>Our Values</h3>
-            <span className="card-subtext">Integrity & Respect</span>
-          </div>
-          <ChevronRight className="nav-arrow" size={20} />
-        </div>
-
-        <div className="about-nav-card" onClick={() => openModal('purpose')}>
-          <div className="card-icon-wrapper">
-            <Target size={32} />
-          </div>
-          <div className="card-content">
-            <h3>Our Purpose</h3>
-            <span className="card-subtext">Equitable Access</span>
-          </div>
-          <ChevronRight className="nav-arrow" size={20} />
-        </div>
-
       </div>
 
-      {/* ... (Modal code remains same) ... */}
-
-
-      {/* =========================
-          MODAL OVERLAY
-      ========================== */}
-      {activeModal && (
-        <div className="modal-overlay" onClick={closeModal}>
-
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close-btn" onClick={closeModal}>×</button>
-
-            <div className="modal-body">
-
-              {activeModal === 'mission' && <Mission />}
-              {activeModal === 'values' && <Value />}
-              {activeModal === 'purpose' && <Purpose />}
-
-            </div>
+      {/* CONTENT SECTIONS */}
+      <section id="mission" className="content-section mission-section">
+        <div className="section-content">
+          <div className="text-col">
+            <h2>Our Mission</h2>
+            <p>{pageContent.details.mission}</p>
+          </div>
+          <div className="image-col">
+            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80" alt="Mission" />
           </div>
         </div>
-      )}
+      </section>
 
+      <section id="vision" className="content-section vision-section reverse">
+        <div className="section-content">
+          <div className="image-col">
+            <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80" alt="Vision" />
+          </div>
+          <div className="text-col">
+            <h2>Our Vision</h2>
+            <p>{pageContent.details.vision}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Added for anchor to work with legacy code or layout if needed */}
+      <div id="values"></div>
     </div>
   );
 };

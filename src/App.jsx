@@ -16,6 +16,7 @@ import EmergingTech from './components/EmpowerTechAI/emerging-tech';
 import AI from './components/EmpowerTechAI/AI';
 import './App.css';
 import StudentSession from './components/forums/session';
+import NotificationBanner from './components/NotificationBanner';
 
 import AdminLayout from './components/Admin/AdminLayout';
 import AdminLogin from './components/Admin/AdminLogin';
@@ -23,6 +24,8 @@ import Dashboard from './components/Admin/Dashboard';
 import Enquiries from './components/Admin/Enquiries';
 import News from './components/intelligenceHub/news';
 import AdminSessions from './components/Admin/adminSession';
+import AdminNotifications from './components/Admin/AdminNotifications';
+import ContentManagement from './components/Admin/ContentManagement';
 
 
 import DNAAnimation from './components/DNAAnimation';
@@ -38,6 +41,7 @@ function App() {
           <Route
             element={
               <>
+                <NotificationBanner />
                 <Navbar />
                 <Outlet />
                 <Footer />
@@ -69,6 +73,8 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="enquiries" element={<Enquiries />} />
             <Route path="/admin/sessions" element={<AdminSessions />} />
+            <Route path="/admin/notifications" element={<AdminNotifications />} />
+            <Route path="/admin/content" element={<ContentManagement />} />
           </Route>
         </Routes>
       </div>
