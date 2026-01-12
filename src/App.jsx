@@ -19,7 +19,6 @@ import StudentSession from './components/forums/session';
 import NotificationBanner from './components/NotificationBanner';
 
 import AdminLayout from './components/Admin/AdminLayout';
-import AdminLogin from './components/Admin/AdminLogin';
 import Dashboard from './components/Admin/Dashboard';
 import Enquiries from './components/Admin/Enquiries';
 import News from './components/intelligenceHub/news';
