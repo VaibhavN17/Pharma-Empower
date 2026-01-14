@@ -52,10 +52,10 @@ const Navbar = () => {
         <div className={isMobileMenuOpen ? "nav-menu active" : "nav-menu"}>
           <div className="navbar-center">
             <ul className="nav-links">
-              {/* HOME LINK */}
+              {/* EVENTS LINK */}
               <li>
-                <Link to="/" className="nav-link" onClick={toggleMenu}>
-                  Home
+                <Link to="/events" className="nav-link" onClick={toggleMenu}>
+                  Events
                 </Link>
               </li>
               {/* ABOUT US DROPDOWN */}

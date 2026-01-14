@@ -28,6 +28,10 @@ import ContentManagement from './components/Admin/ContentManagement';
 import News from './components/intelligenceHub/news';
 import DNAAnimation from './components/DNAAnimation';
 
+import Events from './components/Events/Events';
+import AdminEvents from './components/Admin/AdminEvents';
+import UserManagement from './components/Admin/UserManagement';
+
 function App() {
   return (
     <Router>
@@ -61,6 +65,7 @@ function App() {
             <Route path="/empower/ai" element={<AI />} />
             <Route path="/session" element={<StudentSession />} />
             <Route path="/intelligence-hub/news" element={<News />} />
+            <Route path="/events" element={<Events />} />
           </Route>
 
           {/* ADMIN ROUTES */}
@@ -71,6 +76,8 @@ function App() {
             <Route path="sessions" element={<AdminSessions />} />
             <Route path="notifications" element={<AdminNotifications />} />
             <Route path="content" element={<ContentManagement />} />
+            <Route path="events-control" element={<AdminEvents />} />
+            <Route path="access-control" element={<UserManagement />} />
           </Route>
         </Routes>
       </div>

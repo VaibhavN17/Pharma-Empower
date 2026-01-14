@@ -57,6 +57,14 @@ const AdminLayout = () => {
                         Content
                     </NavLink>
 
+                    <NavLink to="/admin/access-control" className="sidebar-link">
+                        Access Control
+                    </NavLink>
+
+                    <NavLink to="/admin/events-control" className="sidebar-link">
+                        Events Control
+                    </NavLink>
+
                     <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px' }}>
                         <button
                             onClick={handleLogout}
