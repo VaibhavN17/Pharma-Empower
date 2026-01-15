@@ -238,3 +238,33 @@
     color: #c53030;
     background: #fff5f5;
 }
+
+@media (max-width: 768px) {
+    .cms-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-selector-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .highlight-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .highlight-item .delete-icon {
+        align-self: flex-end;
+    }
+
+    .highlight-form {
+        flex-direction: column;
+    }
+
+    .highlight-form button {
+        justify-content: center;
+        width: 100%;
+    }
+}

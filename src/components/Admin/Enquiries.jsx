@@ -1,4 +1,4 @@
- import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { contactAPI } from '../../services/api';
 
 const Enquiries = () => {
@@ -79,22 +79,22 @@ const Enquiries = () => {
                         <tbody>
                             {filteredEnquiries.map(enq => (
                                 <tr key={enq.id}>
-                                    <td>{enq.name}</td>
-                                    <td>{enq.email}</td>
-                                    <td>{enq.subject}</td>
-                                    <td>{enq.message.substring(0, 30)}...</td>
-                                    <td>{new Date(enq.created_at).toLocaleDateString()}</td>
-                                    <td>
+                                    <td data-label="Name">{enq.name}</td>
+                                    <td data-label="Email">{enq.email}</td>
+                                    <td data-label="Subject">{enq.subject}</td>
+                                    <td data-label="Message">{enq.message.substring(0, 30)}...</td>
+                                    <td data-label="Date">{new Date(enq.created_at).toLocaleDateString()}</td>
+                                    <td data-label="Status">
                                         <span
                                             className={`badge ${enq.status === 'New'
-                                                    ? 'badge-new'
-                                                    : 'badge-read'
+                                                ? 'badge-new'
+                                                : 'badge-read'
                                                 }`}
                                         >
                                             {enq.status}
                                         </span>
                                     </td>
-                                    <td>
+                                    <td data-label="Actions">
                                         <button
                                             style={{
                                                 cursor: 'pointer',
@@ -118,7 +118,23 @@ const Enquiries = () => {
             {/* ===== VIEW MODAL ===== */}
             {selectedEnquiry && (
                 <div className="modal-overlay">
-                    <div className="modal-card">
+                    <div className="modal-card" style={{ position: 'relative' }}>
+                        <button
+                            className="close-cross-btn"
+                            onClick={() => setSelectedEnquiry(null)}
+                            style={{
+                                position: 'absolute',
+                                top: '15px',
+                                right: '15px',
+                                background: 'transparent',
+                                border: 'none',
+                                fontSize: '1.5rem',
+                                cursor: 'pointer',
+                                color: '#666'
+                            }}
+                        >
+                            &times;
+                        </button>
                         <h3>{selectedEnquiry.subject}</h3>
 
                         <p><strong>Name:</strong> {selectedEnquiry.name}</p>

@@ -110,7 +110,7 @@ const AdminNotifications = () => {
                 <div className="list-header">
                     <h3>Active Notifications (Live on Website)</h3>
                 </div>
-                <table className="notifications-table">
+                <table className="notifications-table data-table">
                     <thead>
                         <tr>
                             <th>Type</th>
@@ -130,18 +130,18 @@ const AdminNotifications = () => {
                         ) : (
                             notifications.map((note) => (
                                 <tr key={note.id}>
-                                    <td>
+                                    <td data-label="Type">
                                         <span className={`type-badge ${note.type}`}>{note.type}</span>
                                     </td>
-                                    <td><strong>{note.title}</strong></td>
-                                    <td>
+                                    <td data-label="Title"><strong>{note.title}</strong></td>
+                                    <td data-label="Date">
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                             <Calendar size={14} />
                                             {note.date || 'N/A'}
                                         </div>
                                     </td>
-                                    <td>{note.message.substring(0, 50)}...</td>
-                                    <td>
+                                    <td data-label="Preview">{note.message.substring(0, 50)}...</td>
+                                    <td data-label="Action">
                                         <button onClick={() => handleDelete(note.id)} className="delete-btn">
                                             <Trash2 size={18} />
                                         </button>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Rocket, Heart, Target, ChevronRight, Eye } from 'lucide-react';
+import { Rocket, Heart, Target, ChevronRight, Eye, X } from 'lucide-react';
 import Principles from './Principles';
 import Mission from './Mission';
 import Value from './Value';
@@ -9,6 +9,7 @@ import './About.css';
 
 const About = () => {
   // CMS LOGIC
+  const [activeModal, setActiveModal] = useState(null);
   const [pageContent, setPageContent] = useState({
     hero: {
       title: 'About Us',
@@ -45,67 +46,111 @@ const About = () => {
   return (
     <div className="about-page">
 
-      {/* HER0 SECTION */}
-      <div
-        className="about-hero"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${pageContent.hero.bgImage})`
-        }}
-      >
-        <div className="hero-content">
-          <h1>{pageContent.hero.title}</h1>
-          <p>{pageContent.hero.subtitle}</p>
+      {/* HERO SECTION */}
+      <div className="about-hero">
+        <div className="about-hero-card">
+          <div className="hero-text-content">
+            <h1 className="about-tagline">
+              Empowering the <br />
+              <span className="highlight-text">Future of Pharmacy</span>
+            </h1>
+            <p style={{ fontSize: '1.2rem', color: '#555', marginTop: '20px', lineHeight: '1.6' }}>
+              We are dedicated to advancing the pharmaceutical profession through
+              innovation, education, and community building. Joining hands for a healthier tomorrow.
+            </p>
+          </div>
+          <div className="hero-image-content">
+            <img
+              src={aboutHeroImg}
+              alt="Pharma Empower Team"
+              className="about-hero-img"
+            />
+          </div>
         </div>
+      </div>
+
+      {/* PRINCIPLES SECTION (Moved below Hero) */}
+      <div id="principles">
+        <Principles />
       </div>
 
       {/* NAVIGATION CARDS */}
       <div className="about-nav-container">
-        <div className="nav-cards">
-          <div className="nav-card" onClick={() => scrollToSection('mission')}>
-            <Target className="card-icon" />
+
+        <div className="about-nav-card" onClick={() => setActiveModal('mission')}>
+          <div className="card-icon-wrapper">
+            <Target size={32} />
+          </div>
+          <div className="card-content">
             <h3>Our Mission</h3>
-            <p>Driving excellence in pharma education</p>
+            <span className="card-subtext">Driving excellence</span>
           </div>
-          <div className="nav-card" onClick={() => scrollToSection('vision')}>
-            <Eye className="card-icon" />
-            <h3>Our Vision</h3>
-            <p>Shaping the future of healthcare</p>
-          </div>
-          <div className="nav-card" onClick={() => scrollToSection('values')}>
-            <Heart className="card-icon" />
-            <h3>Core Values</h3>
-            <p>Integrity, Innovation, Impact</p>
+          <div className="nav-arrow">
+            <ChevronRight size={20} />
           </div>
         </div>
+
+        <div className="about-nav-card" onClick={() => setActiveModal('purpose')}>
+          <div className="card-icon-wrapper">
+            <Eye size={32} />
+          </div>
+          <div className="card-content">
+            <h3>Our Purpose</h3>
+            <span className="card-subtext">Shaping the future</span>
+          </div>
+          <div className="nav-arrow">
+            <ChevronRight size={20} />
+          </div>
+        </div>
+
+        <div className="about-nav-card" onClick={() => setActiveModal('values')}>
+          <div className="card-icon-wrapper">
+            <Heart size={32} />
+          </div>
+          <div className="card-content">
+            <h3>Core Values</h3>
+            <span className="card-subtext">Integrity & Impact</span>
+          </div>
+          <div className="nav-arrow">
+            <ChevronRight size={20} />
+          </div>
+        </div>
+
       </div>
 
-      {/* CONTENT SECTIONS */}
-      <section id="mission" className="content-section mission-section">
-        <div className="section-content">
-          <div className="text-col">
-            <h2>Our Mission</h2>
-            <p>{pageContent.details.mission}</p>
-          </div>
-          <div className="image-col">
-            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80" alt="Mission" />
+      {/* COMPONENT SECTIONS - NOW IN MODAL */}
+
+      {/* FLOATING MODAL WINDOW */}
+      {activeModal && (
+        <div className="about-modal-overlay" onClick={() => setActiveModal(null)}>
+          <div className="about-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="about-modal-close" onClick={() => setActiveModal(null)}>
+              <X size={24} />
+            </button>
+            <div className="about-modal-body">
+              {activeModal === 'mission' && <Mission />}
+              {activeModal === 'values' && <Value />}
+              {activeModal === 'purpose' && (
+                <section className="mission-section" style={{ padding: 0 }}>
+                  <div className="mission-container">
+                    <h2 className="mission-title">Our Purpose</h2>
+                    <p className="mission-description">
+                      Expanding equitable access to learning so every individual can grow,
+                      advance, and elevate the quality of patient care.
+                    </p>
+                    <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+                      <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80" alt="Purpose" style={{ maxWidth: '100%', maxHeight: '300px', borderRadius: '12px', objectFit: 'cover' }} />
+                    </div>
+                  </div>
+                </section>
+              )}
+            </div>
           </div>
         </div>
-      </section>
+      )}
 
-      <section id="vision" className="content-section vision-section reverse">
-        <div className="section-content">
-          <div className="image-col">
-            <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80" alt="Vision" />
-          </div>
-          <div className="text-col">
-            <h2>Our Vision</h2>
-            <p>{pageContent.details.vision}</p>
-          </div>
-        </div>
-      </section>
 
-      {/* Added for anchor to work with legacy code or layout if needed */}
-      <div id="values"></div>
+
     </div>
   );
 };
