@@ -108,7 +108,7 @@ const About = () => {
             <Heart size={32} />
           </div>
           <div className="card-content">
-            <h3>Core Values</h3>
+            <h3>Our Values</h3>
             <span className="card-subtext">Integrity & Impact</span>
           </div>
           <div className="nav-arrow">
