@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Rocket, Heart, Target, ChevronRight, Eye, X } from 'lucide-react';
-import Principles from './Principles';
-import Mission from './Mission';
-import Value from './Value';
-import Purpose from './Purpose';
+import { Rocket, Heart, Target, ChevronRight, Eye, X, BookOpen } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import aboutHeroImg from '../../images/about_hero.png';
 import './About.css';
 
 const About = () => {
-  // CMS LOGIC
-  const [activeModal, setActiveModal] = useState(null);
+  // CMS LOGIC (keeping it for hero content if used)
   const [pageContent, setPageContent] = useState({
     hero: {
       title: 'About Us',
@@ -35,13 +31,6 @@ const About = () => {
     }
     window.scrollTo(0, 0);
   }, []);
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <div className="about-page">
@@ -69,20 +58,15 @@ const About = () => {
         </div>
       </div>
 
-      {/* PRINCIPLES SECTION (Moved below Hero) */}
-      <div id="principles">
-        <Principles />
-      </div>
-
       {/* NAVIGATION CARDS */}
       <div className="about-nav-container">
 
-        <div className="about-nav-card" onClick={() => setActiveModal('mission')}>
+        <div className="about-nav-card" onClick={() => window.location.href = '/about/mission'}>
           <div className="card-icon-wrapper">
             <Target size={32} />
           </div>
           <div className="card-content">
-            <h3>Our Mission</h3>
+            <h3>+ Our Mission</h3>
             <span className="card-subtext">Driving excellence</span>
           </div>
           <div className="nav-arrow">
@@ -90,12 +74,25 @@ const About = () => {
           </div>
         </div>
 
-        <div className="about-nav-card" onClick={() => setActiveModal('purpose')}>
+        <div className="about-nav-card" onClick={() => window.location.href = '/about/values'}>
+          <div className="card-icon-wrapper">
+            <Heart size={32} />
+          </div>
+          <div className="card-content">
+            <h3>+ Our Values</h3>
+            <span className="card-subtext">Integrity & Impact</span>
+          </div>
+          <div className="nav-arrow">
+            <ChevronRight size={20} />
+          </div>
+        </div>
+
+        <div className="about-nav-card" onClick={() => window.location.href = '/about/purpose'}>
           <div className="card-icon-wrapper">
             <Eye size={32} />
           </div>
           <div className="card-content">
-            <h3>Our Purpose</h3>
+            <h3>+ Our Purpose</h3>
             <span className="card-subtext">Shaping the future</span>
           </div>
           <div className="nav-arrow">
@@ -103,13 +100,13 @@ const About = () => {
           </div>
         </div>
 
-        <div className="about-nav-card" onClick={() => setActiveModal('values')}>
+        <div className="about-nav-card" onClick={() => window.location.href = '/about/principles'}>
           <div className="card-icon-wrapper">
-            <Heart size={32} />
+            <BookOpen size={32} />
           </div>
           <div className="card-content">
-            <h3>Our Values</h3>
-            <span className="card-subtext">Integrity & Impact</span>
+            <h3>+ Our Principles</h3>
+            <span className="card-subtext">Core beliefs</span>
           </div>
           <div className="nav-arrow">
             <ChevronRight size={20} />
@@ -118,41 +115,10 @@ const About = () => {
 
       </div>
 
-      {/* COMPONENT SECTIONS - NOW IN MODAL */}
-
-      {/* FLOATING MODAL WINDOW */}
-      {activeModal && (
-        <div className="about-modal-overlay" onClick={() => setActiveModal(null)}>
-          <div className="about-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="about-modal-close" onClick={() => setActiveModal(null)}>
-              <X size={24} />
-            </button>
-            <div className="about-modal-body">
-              {activeModal === 'mission' && <Mission />}
-              {activeModal === 'values' && <Value />}
-              {activeModal === 'purpose' && (
-                <section className="mission-section" style={{ padding: 0 }}>
-                  <div className="mission-container">
-                    <h2 className="mission-title">Our Purpose</h2>
-                    <p className="mission-description">
-                      Expanding equitable access to learning so every individual can grow,
-                      advance, and elevate the quality of patient care.
-                    </p>
-                    <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
-                      <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80" alt="Purpose" style={{ maxWidth: '100%', maxHeight: '300px', borderRadius: '12px', objectFit: 'cover' }} />
-                    </div>
-                  </div>
-                </section>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-
-
     </div>
   );
 };
 
 export default About;
+
+

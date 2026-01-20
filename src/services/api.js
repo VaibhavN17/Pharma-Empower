@@ -20,8 +20,8 @@ api.interceptors.request.use((config) => {
 export const authAPI = {
   register: (userData) => api.post('/api/auth/register', userData),
   login: (credentials) => api.post('/api/auth/login', credentials),
-  // Legacy support if needed, but above covers it with better naming
 };
+
 
 /* ================= SKILLS ================= */
 export const skillAPI = {
@@ -123,4 +123,3 @@ export const dashboardAPI = {
 };
 
 export default api;
-

@@ -3,31 +3,31 @@ const jwt = require('jsonwebtoken');
 const pool = require('../config/db');
 
 const register = async (req, res) => {
-  console.log("Register function is running");
+
   console.log("hello");
-    const { email, password,full_name} = req.body;
-    
-    try {
-        // Check if user exists
-        const [existingUser] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
-        if (existingUser.length > 0) {
-            return res.status(400).json({ message: 'User already exists' });
-        }
+  const { email, password, full_name } = req.body;
 
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Create user
-        const [userResult] = await pool.execute(
-            'INSERT INTO users (full_name,email, password, role) VALUES (?,?, ?, ?)',
-            [full_name,email, hashedPassword,"user"]
-        );
-
-
-        res.status(201).json({ message: 'User registered successfully' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+  try {
+    // Check if user exists
+    const [existingUser] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
+    if (existingUser.length > 0) {
+      return res.status(400).json({ message: 'User already exists' });
     }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create user
+    const [userResult] = await pool.execute(
+      'INSERT INTO users (full_name,email, password, role) VALUES (?,?, ?, ?)',
+      [full_name, email, hashedPassword, "user"]
+    );
+
+
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 const login = async (req, res) => {
   console.log("Login function is running");
@@ -78,4 +78,4 @@ const login = async (req, res) => {
 
 
 
-module.exports = { login,register };
+module.exports = { login, register };
