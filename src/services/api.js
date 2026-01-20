@@ -41,6 +41,16 @@ export const communityAPI = {
     api.put(`/api/admin/community/answer/${id}`, data),
 };
 
+/* ================= USER ACCESS CONTROL ================= */
+export const userAPI = {
+  getAllUsers: () => api.get('/api/users'),
+  updateUserRole: (id, role) =>
+    api.put(`/api/users/${id}/role`, { role }),
+  updateUserStatus: (id, is_blocked) =>
+    api.put(`/api/users/${id}/status`, { is_blocked }),
+};
+
+
 
 /* ================= CMS (PAGES) ================= */
 export const cmsAPI = {
