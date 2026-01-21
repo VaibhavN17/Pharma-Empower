@@ -6,7 +6,8 @@ import { authAPI } from '../../services/api';
 const Login = () => {
     const [formData, setFormData] = useState({
         email: '',
-        password: ''
+        password: '',
+        role: 'user' // Default role
     });
 
     const navigate = useNavigate();
@@ -22,17 +23,29 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await authAPI.login(formData);
+            const res = await authAPI.login({
+                email: formData.email,
+                password: formData.password
+            });
 
             if (res.data) {
+                const userRole = res.data.user.role;
+                const selectedRole = formData.role;
+
+                // Validate Role Selection
+                if (selectedRole === 'admin' && userRole !== 'admin') {
+                    alert("Access Denied: You do not have Administrator privileges.");
+                    return;
+                }
+
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('user', JSON.stringify(res.data.user));
 
                 // ✅ Admin stays same
-                if (res.data.user.role === 'admin') {
+                if (userRole === 'admin') {
                     navigate('/admin/dashboard', { replace: true });
-                } 
+                }
                 // ✅ User redirected back to requested page
                 else {
                     navigate(redirectTo, { replace: true });
@@ -40,6 +53,7 @@ const Login = () => {
             }
         } catch (err) {
             console.log(err.message);
+            alert(err.response?.data?.message || "Login failed");
         }
     };
 
@@ -53,6 +67,19 @@ const Login = () => {
                     </div>
 
                     <form onSubmit={handleSubmit} className="login-form-global">
+                        <div className="form-group">
+                            <label>Select Role</label>
+                            <select
+                                name="role"
+                                value={formData.role}
+                                onChange={handleChange}
+                                className="form-select"
+                            >
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+
                         <div className="form-group">
                             <label>Email Address</label>
                             <input
