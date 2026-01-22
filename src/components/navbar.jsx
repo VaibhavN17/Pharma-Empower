@@ -36,8 +36,10 @@ const Navbar = () => {
       <div className="navbar-content">
         <div className="navbar-left">
           <a href="/" className="navbar-logo">
-            <span>Pharma</span>
-            <span>Empower</span>
+            <div className="logo-text">
+              <span>Pharma</span>
+              <span>Empower</span>
+            </div>
           </a>
         </div>
 
