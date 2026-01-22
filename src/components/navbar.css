@@ -27,17 +27,41 @@
 }
 
 .navbar-logo {
-    font-size: 26px;
-    font-weight: 700;
-    font-family: var(--font-heading);
-    color: var(--primary-color);
     text-decoration: none;
-    letter-spacing: -0.5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-text {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     line-height: 0.9;
+    font-size: 26px;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    letter-spacing: -0.5px;
+}
+
+.logo-text span:nth-child(1) {
+    color: #4A148C;
+    /* Darker Violet */
+}
+
+.logo-text span:nth-child(2) {
+    color: #9C27B0;
+    /* Lighter Violet */
+}
+
+.logo-bracket {
+    font-size: 32px;
+    font-weight: 300;
+    color: #6A1B9A;
+    /* Mid-tone violet */
+    line-height: 1;
 }
 
 /* Removing the dot for strict text match to image style */
