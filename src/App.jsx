@@ -6,6 +6,10 @@ import Footer from './components/Footer';
 import Home from './components/Home';
 import ContactUs from './components/ContactUs';
 import PharmaAcademy from './components/p_academy/PharmaAcademy';
+import Glance from './components/p_academy/Glance';
+import CoreCareerStage from './components/p_academy/CoreCareerStage';
+import UpskillResources from './components/p_academy/UpskillResources';
+import EmpowerHuntingResources from './components/p_academy/EmpowerHuntingResources';
 import ProfessionalNetwork from './components/forums/ProfessionalNetwork';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import About from './components/About/About';
@@ -37,12 +41,14 @@ import ContentManagement from './components/Admin/ContentManagement';
 import ChatManagement from './components/Admin/ChatManagement';
 import ChatWidget from './components/ChatWidget/ChatWidget';
 
-import News from './components/intelligenceHub/news';
+import News from './components/PharmaNews/news';
 import DNAAnimation from './components/DNAAnimation';
 
 import Events from './components/Events/Events';
 import AdminEvents from './components/Admin/AdminEvents';
 import UserManagement from './components/Admin/UserManagement';
+import Calendar from './components/forums/calender';
+
 
 function App() {
   return (
@@ -90,7 +96,11 @@ function App() {
             <Route path="/session" element={<StudentSession />} />
             <Route path="/intelligence-hub/news" element={<News />} />
             <Route path="/events" element={<Events />} />
-            
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/academy/glance" element={<Glance />} />
+            <Route path="/academy/career-stages" element={<CoreCareerStage />} />
+            <Route path="/academy/upskill" element={<UpskillResources />} />
+            <Route path="/academy/hunting-resources" element={<EmpowerHuntingResources />} />
           </Route>
 
           {/* ADMIN ROUTES */}
