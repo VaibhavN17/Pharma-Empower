@@ -1,168 +1,145 @@
 /* ================= PAGE ================= */
 .admin-chat-container {
-    padding: 30px;
-    background-color: #f1f5f9;
+    padding: 2rem;
+    background-color: #f8f9fa;
     min-height: 100vh;
 }
 
+/* Page header */
+.admin-chat-header {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* Page title */
-.admin-chat-container h2 {
-    margin-bottom: 20px;
+.admin-chat-title {
     font-size: 24px;
-    font-weight: 700;
-    color: #0f172a;
+    font-weight: 600;
+    color: #333;
 }
 
 /* ================= CARD ================= */
 .chat-card {
-    max-width: 1200px;          /* 🔥 IMPORTANT */
-    background: #ffffff;
+    background-color: white;
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
 }
 
 /* ================= TABLE ================= */
 .chat-table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: collapse;
 }
 
 /* Header */
 .chat-table thead th {
-    background-color: #f8fafc;
-    padding: 16px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #334155;
-    border-bottom: 2px solid #e2e8f0;
+    padding: 1rem;
+    background-color: #f1f3f5;
+    color: #666;
+    font-weight: 600;
+    border-bottom: 1px solid #e9ecef;
 }
 
 /* Body */
 .chat-table tbody td {
-    padding: 16px;
-    font-size: 14px;
-    color: #334155;
-    border-bottom: 1px solid #e5e7eb;
+    padding: 1rem; /* Adjust as needed for consistency */
+    border-bottom: 1px solid #e9ecef; /* Assuming a light border for rows */
     vertical-align: top;
 }
 
-/* Question emphasis */
-.chat-table tbody td:nth-child(3) {
+/* User info in table */
+.chat-table tbody td:nth-child(2) div {
     font-weight: 500;
-    color: #0f172a;
-}
-
-/* Row hover */
-.chat-table tbody tr:hover {
-    background-color: #f8fafc;
 }
 
 /* ================= STATUS ================= */
 .status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-.status-pending {
-    background-color: #fff7ed;
-    color: #c2410c;
+    gap: 4px;
 }
 
 .status-answered {
-    background-color: #ecfdf3;
-    color: #047857;
+    background-color: #d3f9d8;
+    color: #2b8a3e;
+}
+
+.status-pending {
+    background-color: #fff3bf;
+    color: #f08c00;
 }
 
 /* ================= BUTTONS ================= */
-.reply-btn,
-.send-btn {
-    width: 100%;
-    padding: 8px 14px;
-    border-radius: 8px;
+.action-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
     border: none;
-    font-size: 13px;
-    font-weight: 700;
     cursor: pointer;
+    font-size: 14px;
+    background-color: #228be6;
+    color: white;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
+    gap: 5px;
 }
 
-/* Reply */
-.reply-btn {
-    background-color: #2563eb;
-    color: #ffffff;
-}
-
-.reply-btn:hover {
-    background-color: #1e40af;
-}
-
-/* Send */
-.send-btn {
-    background-color: #16a34a;
-    color: #ffffff;
-    margin-top: 8px;
-}
-
-.send-btn:hover {
-    background-color: #15803d;
+.action-btn:hover {
+    background-color: #1c7ed6; /* Slightly darker on hover */
 }
 
 /* ================= TEXTAREA ================= */
-.reply-textarea {
+.reply-input {
     width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #cbd5f5;
-    font-size: 13px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
     margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 14px; /* Assuming default */
 }
 
-.reply-textarea:focus {
+.reply-input:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    border-color: #228be6;
+    box-shadow: 0 0 0 2px rgba(34, 139, 230, 0.15);
 }
 
 /* ================= EMPTY STATE ================= */
 .no-enquiries {
-    padding: 50px;
     text-align: center;
-    color: #64748b;
-    font-size: 15px;
+    padding: 2rem;
+    color: #666; /* Assuming */
 }
 
-/* ================= MOBILE ================= */
+/* ================= MOBILE (if needed) ================= */
+/* Add media queries if you want responsiveness, e.g.: */
 @media (max-width: 768px) {
-    .chat-card {
-        padding: 10px;
+    .admin-chat-container {
+        padding: 1rem;
     }
-
+    
     .chat-table thead {
-        display: none;
+        display: none; /* Hide headers on mobile */
     }
-
+    
     .chat-table tbody tr {
         display: block;
-        margin-bottom: 16px;
+        margin-bottom: 1rem;
         border-radius: 10px;
-        background: #ffffff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        background: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
-
+    
     .chat-table tbody td {
         display: block;
         border: none;
-        padding: 10px;
+        padding: 0.5rem 1rem;
     }
 }
