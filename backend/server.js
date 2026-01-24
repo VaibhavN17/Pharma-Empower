@@ -28,29 +28,26 @@ app.get("/", (req, res) => {
     res.status(200).send("Pharma Empower Backend is running 🚀");
 });
 
-/* ================= CORS (🔥 FIXED) ================= */
+/* ================= CORS (DEPLOY + LOCAL FIX) ================= */
 const allowedOrigins = [
     'http://localhost:3000',
-    'https://static-site-8s17.onrender.com',
-    'https://pharma-empowerr.onrender.com'
+    'https://static-site-8s17.onrender.com'
 ];
 
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            if (!origin) return callback(null, true); // Postman / server-to-server
-            if (allowedOrigins.includes(origin)) {
-                return callback(null, true);
-            }
-            return callback(new Error('Not allowed by CORS'));
-        },
-        credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization']
-    })
-);
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true); // Postman
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error('CORS not allowed'), false);
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
-// 🔥 REQUIRED for PUT/DELETE requests
+// 🔥 REQUIRED for preflight
 app.options('*', cors());
 
 /* ================= MIDDLEWARE ================= */
@@ -59,13 +56,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 /* ================= DB TEST ================= */
 pool.getConnection()
-    .then(connection => {
-        console.log('✅ Database connected successfully!');
-        connection.release();
+    .then(conn => {
+        console.log('✅ Database connected successfully');
+        conn.release();
     })
-    .catch(err => {
-        console.error('❌ Database connection failed:', err);
-    });
+    .catch(err => console.error('❌ DB error:', err));
 
 /* ================= ROUTES ================= */
 app.use('/api/calendar', calendarRoutes);
@@ -82,15 +77,11 @@ app.use('/api/pages', require('./routes/pageRoutes'));
 
 /* ================= HEALTH ================= */
 app.get('/api/health', (req, res) => {
-    res.json({
-        status: 'OK',
-        env: process.env.NODE_ENV || 'local'
-    });
+    res.json({ status: 'OK' });
 });
 
 /* ================= SERVER ================= */
 const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
