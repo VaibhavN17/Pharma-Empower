@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Send, CheckCircle, Clock } from 'lucide-react';
 import { communityAPI } from '../../services/api';
+import './ChatManagement.css';
 
 const ChatManagement = () => {
 
@@ -63,66 +64,83 @@ const ChatManagement = () => {
         }
     };
 
-    if (loading) return <div style={{ padding: '2rem' }}>Loading enquiries...</div>;
-    if (error) return <div style={{ padding: '2rem' }}>❌ {error}</div>;
+    if (loading) return <div className="admin-chat-container">Loading enquiries...</div>;
+    if (error) return <div className="admin-chat-container">❌ {error}</div>;
 
     return (
-        <div style={{ padding: '2rem', background: '#f8f9fa', minHeight: '100vh' }}>
+        <div className="admin-chat-container">
             <h2>Public Chat Enquiries</h2>
 
-            <table style={{ width: '100%', background: '#fff' }}>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Question</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {enquiries.length === 0 ? (
+            <div className="chat-card">
+                <table className="chat-table">
+                    <thead>
                         <tr>
-                            <td colSpan="5" style={{ textAlign: 'center' }}>
-                                <CheckCircle size={40} />
-                                <div>No pending enquiries</div>
-                            </td>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Question</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
-                    ) : enquiries.map(enq => (
-                        <tr key={enq.id}>
-                            <td>#{enq.id}</td>
-                            <td>{enq.user}</td>
-                            <td>{enq.question}</td>
-                            <td>
-                                <span>
-                                    {enq.status === "Answered"
-                                        ? <CheckCircle size={12} />
-                                        : <Clock size={12} />}
-                                    {enq.status}
-                                </span>
-                            </td>
-                            <td>
-                                {answeringId === enq.id ? (
-                                    <>
-                                        <textarea
-                                            rows="3"
-                                            value={replyText}
-                                            onChange={e => setReplyText(e.target.value)}
-                                        />
-                                        <button onClick={() => handleSubmitReply(enq.id)}>
-                                            <Send size={14} /> Send
+                    </thead>
+
+                    <tbody>
+                        {enquiries.length === 0 ? (
+                            <tr>
+                                <td colSpan="5" className="no-enquiries">
+                                    <CheckCircle size={40} />
+                                    <div>No pending enquiries</div>
+                                </td>
+                            </tr>
+                        ) : enquiries.map(enq => (
+                            <tr key={enq.id}>
+                                <td>#{enq.id}</td>
+                                <td>
+                                    <strong>{enq.user}</strong><br />
+                                    <small>{enq.date}</small>
+                                </td>
+                                <td>{enq.question}</td>
+                                <td>
+                                    <span className={`status-badge ${
+                                        enq.status === "Answered"
+                                            ? "status-answered"
+                                            : "status-pending"
+                                    }`}>
+                                        {enq.status === "Answered"
+                                            ? <CheckCircle size={12} />
+                                            : <Clock size={12} />}
+                                        {enq.status}
+                                    </span>
+                                </td>
+                                <td>
+                                    {answeringId === enq.id ? (
+                                        <>
+                                            <textarea
+                                                rows="3"
+                                                className="reply-textarea"
+                                                value={replyText}
+                                                onChange={e => setReplyText(e.target.value)}
+                                            />
+                                            <button
+                                                className="send-btn"
+                                                onClick={() => handleSubmitReply(enq.id)}
+                                            >
+                                                <Send size={14} /> Send
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <button
+                                            className="reply-btn"
+                                            onClick={() => handleReplyClick(enq.id)}
+                                        >
+                                            <Send size={14} /> Reply
                                         </button>
-                                    </>
-                                ) : (
-                                    <button onClick={() => handleReplyClick(enq.id)}>
-                                        <Send size={14} /> Reply
-                                    </button>
-                                )}
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
