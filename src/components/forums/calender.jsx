@@ -19,7 +19,7 @@ const Calendar = () => {
     const [events, setEvents] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(null);
 
-    /* ================= FETCH USER BOOKINGS (FIXED) ================= */
+    /* ================= FETCH USER BOOKINGS (FINAL FIX) ================= */
     const fetchBookings = async () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user?.id) return [];
@@ -30,19 +30,40 @@ const Calendar = () => {
 
             const data = await res.json();
 
-            const formatted = data.map(item => ({
-                date: item.booking_date,
-                title:
-                    item.booking_type === 'consultation'
-                        ? '1:1 Expert Consultation'
-                        : item.booking_type === 'regulatory'
-                        ? 'Regulatory Advisory'
-                        : 'Technical Review',
-                status: item.status // pending | approved | rejected
-            }));
+            const formatted = data.map(item => {
+                // 🔥 NORMALIZE STATUS
+                let status = 'pending';
+
+                if (
+                    item.status === 'approved' ||
+                    item.status === 'APPROVED' ||
+                    item.status === 1
+                ) {
+                    status = 'approved';
+                }
+
+                if (
+                    item.status === 'rejected' ||
+                    item.status === 'REJECTED' ||
+                    item.status === 0
+                ) {
+                    status = 'rejected';
+                }
+
+                return {
+                    date: item.booking_date,
+                    title:
+                        item.booking_type === 'consultation'
+                            ? '1:1 Expert Consultation'
+                            : item.booking_type === 'regulatory'
+                            ? 'Regulatory Advisory'
+                            : 'Technical Review',
+                    status
+                };
+            });
 
             setEvents(formatted);
-            return formatted; // ✅ IMPORTANT
+            return formatted;
         } catch (err) {
             console.error('Fetch booking error:', err);
             return [];
@@ -53,20 +74,7 @@ const Calendar = () => {
         fetchBookings();
     }, []);
 
-    /* ================= CALENDAR HELPERS ================= */
-    const getDaysInMonth = (date) =>
-        new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-
-    const getFirstDayOfMonth = (date) =>
-        new Date(date.getFullYear(), date.getMonth(), 1).getDay();
-
-    const handlePrevMonth = () =>
-        setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
-
-    const handleNextMonth = () =>
-        setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
-
-    /* ================= DATE CLICK (FIXED) ================= */
+    /* ================= DATE CLICK ================= */
     const handleDayClick = async (day) => {
         const clickedDate = new Date(
             currentDate.getFullYear(),
@@ -75,8 +83,7 @@ const Calendar = () => {
         );
 
         const dateStr = clickedDate.toISOString().split('T')[0];
-
-        const latestEvents = await fetchBookings(); // ✅ FIX
+        const latestEvents = await fetchBookings();
         const updatedEvent = latestEvents.find(e => e.date === dateStr) || null;
 
         setSelectedDate(clickedDate);
@@ -114,20 +121,30 @@ const Calendar = () => {
             alert('Booking request sent');
             setShowModal(false);
             setNotes('');
-            fetchBookings(); // refresh
+            fetchBookings();
         } catch {
             alert('Failed to submit booking request');
         }
     };
 
-    /* ================= RENDER CALENDAR ================= */
+    /* ================= CALENDAR GRID ================= */
     const renderCalendarGrid = () => {
-        const daysInMonth = getDaysInMonth(currentDate);
-        const firstDay = getFirstDayOfMonth(currentDate);
+        const daysInMonth = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth() + 1,
+            0
+        ).getDate();
+
+        const firstDay = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            1
+        ).getDay();
+
         const days = [];
 
         for (let i = 0; i < firstDay; i++) {
-            days.push(<div key={`empty-${i}`} className="calendar-day empty"></div>);
+            days.push(<div key={`empty-${i}`} className="calendar-day empty" />);
         }
 
         for (let day = 1; day <= daysInMonth; day++) {
@@ -162,93 +179,47 @@ const Calendar = () => {
                 </div>
             );
         }
+
         return days;
     };
 
-    const monthNames = [
-        "January","February","March","April","May","June",
-        "July","August","September","October","November","December"
-    ];
-
     return (
         <div className="calendar-container">
-            <div className="calendar-header-section">
-                <h1>Pharma Expert Calendar</h1>
-                <p className="calendar-subtitle">
-                    Visualize key milestones and schedule expert consultations.
-                </p>
-            </div>
-
-            <div className="calendar-controls">
-                <button className="control-btn" onClick={handlePrevMonth}>&lt; Prev</button>
-                <div className="current-month">
-                    {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-                </div>
-                <button className="control-btn" onClick={handleNextMonth}>Next &gt;</button>
-            </div>
+            <h1>Pharma Expert Calendar</h1>
 
             <div className="calendar-grid">
-                <div className="calendar-day-header">Sun</div>
-                <div className="calendar-day-header">Mon</div>
-                <div className="calendar-day-header">Tue</div>
-                <div className="calendar-day-header">Wed</div>
-                <div className="calendar-day-header">Thu</div>
-                <div className="calendar-day-header">Fri</div>
-                <div className="calendar-day-header">Sat</div>
                 {renderCalendarGrid()}
             </div>
 
             {showModal && (
                 <div className="modal-overlay" onClick={() => setShowModal(false)}>
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
-                        <div className="modal-header">
-                            <h2>Schedule Expert Session</h2>
-                            <p className="modal-date">
-                                Selected Date: {selectedDate?.toDateString()}
-                            </p>
+                        <h2>Schedule Expert Session</h2>
+                        <p>{selectedDate?.toDateString()}</p>
 
-                            {selectedEvent && (
-                                <p style={{ fontWeight: 'bold', marginTop: '6px' }}>
-                                    Status: {selectedEvent.status.toUpperCase()}
-                                </p>
-                            )}
-                        </div>
+                        {selectedEvent && (
+                            <p>
+                                Status: <b>{selectedEvent.status.toUpperCase()}</b>
+                            </p>
+                        )}
 
                         {!selectedEvent && (
                             <form onSubmit={handleScheduleSubmit}>
-                                <div className="form-group">
-                                    <label>Session Type</label>
-                                    <select
-                                        value={bookingType}
-                                        onChange={(e) => setBookingType(e.target.value)}
-                                    >
-                                        <option value="consultation">1:1 Expert Consultation</option>
-                                        <option value="regulatory">Regulatory Advisory</option>
-                                        <option value="technical">Technical Review</option>
-                                    </select>
-                                </div>
+                                <select
+                                    value={bookingType}
+                                    onChange={e => setBookingType(e.target.value)}
+                                >
+                                    <option value="consultation">Consultation</option>
+                                    <option value="regulatory">Regulatory</option>
+                                    <option value="technical">Technical</option>
+                                </select>
 
-                                <div className="form-group">
-                                    <label>Topic / Notes</label>
-                                    <textarea
-                                        rows="3"
-                                        value={notes}
-                                        onChange={(e) => setNotes(e.target.value)}
-                                    />
-                                </div>
+                                <textarea
+                                    value={notes}
+                                    onChange={e => setNotes(e.target.value)}
+                                />
 
-                                <div className="modal-actions">
-                                    <button
-                                        type="button"
-                                        className="btn-cancel"
-                                        onClick={() => setShowModal(false)}
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button type="submit" className="btn-confirm">
-                                        Request Booking
-                                    </button>
-                                </div>
+                                <button type="submit">Request Booking</button>
                             </form>
                         )}
                     </div>
