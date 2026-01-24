@@ -17,6 +17,7 @@ const eventRoutes = require('./routes/eventRoutes');
 const userRoutes = require('./routes/userRoutes');
 const communityRoutes = require('./routes/communityRoutes');
 const communityAdminRoutes = require('./routes/communityAdminRoutes');
+const pageRoutes = require('./routes/pageRoutes');
 
 // DB
 const pool = require('./config/db');
@@ -28,7 +29,7 @@ app.get("/", (req, res) => {
     res.status(200).send("Pharma Empower Backend is running 🚀");
 });
 
-/* ================= CORS (DEPLOY + LOCAL FIX) ================= */
+/* ================= CORS (FINAL FIX) ================= */
 const allowedOrigins = [
     'http://localhost:3000',
     'https://static-site-8s17.onrender.com'
@@ -36,22 +37,27 @@ const allowedOrigins = [
 
 app.use(cors({
     origin: (origin, callback) => {
-        if (!origin) return callback(null, true); // Postman
-        if (allowedOrigins.includes(origin)) {
+        // Allow Postman / server-to-server
+        if (!origin) return callback(null, true);
+
+        // Allow exact + trailing slash cases
+        if (allowedOrigins.some(o => origin.startsWith(o))) {
             return callback(null, true);
         }
-        return callback(new Error('CORS not allowed'), false);
+
+        return callback(null, false);
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// 🔥 REQUIRED for preflight
+// 🔥 MUST be before routes (preflight)
 app.options('*', cors());
 
 /* ================= MIDDLEWARE ================= */
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 /* ================= DB TEST ================= */
@@ -73,7 +79,7 @@ app.use('/api/events', eventRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/community', communityRoutes);
 app.use('/api/admin/community', communityAdminRoutes);
-app.use('/api/pages', require('./routes/pageRoutes'));
+app.use('/api/pages', pageRoutes);
 
 /* ================= HEALTH ================= */
 app.get('/api/health', (req, res) => {
