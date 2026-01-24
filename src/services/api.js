@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-// ✅ Render backend URL (IMPORTANT: no localhost)
-//const API_BASE_URL = 'http://localhost:5000'; // Changed to local for dev, revert before deploy
-// ✅ Render backend URL (IMPORTANT: no localhost)
-const API_BASE_URL = 'https://pharma-empowerr.onrender.com';
-
+// ✅ DEPLOY + LOCAL SAFE (NO DOUBLE SLASH ISSUE)
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL ||
+  'https://pharma-empowerr.onrender.com'; // fallback for production
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE_URL, // ❌ no trailing slash
 });
+
 
 // ✅ Attach auth token automatically
 api.interceptors.request.use((config) => {
