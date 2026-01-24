@@ -3,9 +3,11 @@ import './calender.css';
 import { useNavigate } from 'react-router-dom';
 
 /* ✅ API BASE (DEPLOY SAFE) */
-const API_BASE =
+const API_BASE = (
     process.env.REACT_APP_API_URL ||
-    'https://pharma-empowerr.onrender.com';
+    'https://pharma-empowerr.onrender.com'
+).replace(/\/$/, '');
+
 
 const Calendar = () => {
     const navigate = useNavigate();
