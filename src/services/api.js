@@ -1,30 +1,33 @@
 import axios from 'axios';
 
-// ✅ DEPLOY + LOCAL SAFE (NO DOUBLE SLASH ISSUE)
-const API_BASE_URL =
+/* ================= BASE URL (DEPLOY + LOCAL SAFE) ================= */
+const API_BASE_URL = (
   process.env.REACT_APP_API_URL ||
-  'https://pharma-empowerr.onrender.com'; // fallback for production
+  'https://pharma-empowerr.onrender.com'
+).replace(/\/$/, ''); // 🔥 removes trailing slash safely
 
 const api = axios.create({
-  baseURL: API_BASE_URL, // ❌ no trailing slash
+  baseURL: API_BASE_URL,
+  withCredentials: true, // ✅ REQUIRED for auth & admin routes
 });
 
-
-// ✅ Attach auth token automatically
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token'); // SAME token for user & admin
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+/* ================= TOKEN INTERCEPTOR ================= */
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token'); // SAME token for user & admin
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 /* ================= AUTH ================= */
 export const authAPI = {
   register: (userData) => api.post('/api/auth/register', userData),
   login: (credentials) => api.post('/api/auth/login', credentials),
 };
-
 
 /* ================= SKILLS ================= */
 export const skillAPI = {
@@ -38,7 +41,6 @@ export const communityAPI = {
   // USER
   getQA: () => api.get('/api/community/public'),
 
-  // ✅ FIXED
   askQuestion: (data) =>
     api.post('/api/community/ask', {
       name: data.name,
@@ -51,7 +53,6 @@ export const communityAPI = {
     api.put(`/api/admin/community/answer/${id}`, data),
 };
 
-
 /* ================= USER ACCESS CONTROL ================= */
 export const userAPI = {
   getAllUsers: () => api.get('/api/users'),
@@ -61,9 +62,7 @@ export const userAPI = {
     api.put(`/api/users/${id}/status`, { is_blocked }),
 };
 
-
-
-/* ================= CMS (PAGES) ================= */
+/* ================= CMS ================= */
 export const cmsAPI = {
   getPage: (slug) => api.get(`/api/pages/${slug}`),
   updatePage: (slug, data) => api.put(`/api/pages/${slug}`, data),
@@ -89,7 +88,6 @@ export const calendarAPI = {
   updateStatus: (data) =>
     api.put('/api/calendar/admin/update-status', data),
 };
-
 
 /* ================= APPOINTMENT ================= */
 export const appointmentAPI = {
@@ -124,7 +122,7 @@ export const newsAPI = {
 
 /* ================= SESSION ================= */
 export const sessionAPI = {
-  createSession: (data) => api.post('/api/sessions', data), // Fixed route path
+  createSession: (data) => api.post('/api/sessions', data),
   getAllSessions: () => api.get('/api/sessions'),
   deleteSession: (id) => api.delete(`/api/sessions/${id}`),
 };
@@ -136,7 +134,7 @@ export const contactAPI = {
   markAsRead: (id) => api.put(`/api/contact/${id}/read`),
 };
 
-/* ================= DASHBOARD (ADMIN) ================= */
+/* ================= DASHBOARD ================= */
 export const dashboardAPI = {
   getStats: () => api.get('/api/admin/dashboard/stats'),
 };
