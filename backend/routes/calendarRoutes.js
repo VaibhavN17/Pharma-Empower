@@ -80,5 +80,26 @@ router.get('/user/:id', async (req, res) => {
     }
 });
 
+/* ================= USER: GET OWN REQUESTS ================= */
+router.get('/user/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const [rows] = await pool.execute(
+            `SELECT booking_date, booking_type, status
+             FROM calendar_requests
+             WHERE user_id = ?
+             ORDER BY booking_date ASC`,
+            [id]
+        );
+
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
 
 module.exports = router;
