@@ -85,10 +85,11 @@ export const adminAPI = {
 /* ================= CALENDAR ================= */
 export const calendarAPI = {
   createRequest: (data) => api.post('/api/calendar/requests', data),
-  getUserBookings: (id) => api.get(`/api/calendar/user/${id}`),
   getAdminRequests: () => api.get('/api/calendar/admin/requests'),
-  updateStatus: (data) => api.put('/api/calendar/admin/update-status', data),
+  updateStatus: (data) =>
+    api.put('/api/calendar/admin/update-status', data),
 };
+
 
 /* ================= APPOINTMENT ================= */
 export const appointmentAPI = {
