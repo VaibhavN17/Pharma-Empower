@@ -290,3 +290,22 @@
   padding: 2px 6px;
   font-size: 11px;
 }
+/* ================= BOOKING STATUS COLORS ================= */
+
+/* Pending */
+.event-indicator.pending {
+  background-color: #facc15; /* yellow */
+  color: #000;
+}
+
+/* Approved */
+.event-indicator.approved {
+  background-color: #16a34a; /* green */
+  color: #fff;
+}
+
+/* Rejected */
+.event-indicator.rejected {
+  background-color: #dc2626; /* red */
+  color: #fff;
+}
