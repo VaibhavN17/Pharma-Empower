@@ -16,38 +16,44 @@ const sessionRoutes = require("./routes/sessionRoutes");
 const eventRoutes = require('./routes/eventRoutes');
 const userRoutes = require('./routes/userRoutes');
 const communityRoutes = require('./routes/communityRoutes');
+const communityAdminRoutes = require('./routes/communityAdminRoutes');
 
 // DB
 const pool = require('./config/db');
 
 const app = express();
 
-/* ================= MIDDLEWARE ================= */
-// ✅ Root health check (VERY IMPORTANT)
+/* ================= ROOT HEALTH ================= */
 app.get("/", (req, res) => {
     res.status(200).send("Pharma Empower Backend is running 🚀");
 });
 
-// ✅ Proper CORS (LOCAL + DEPLOY FRONTEND)
+/* ================= CORS (🔥 FIXED) ================= */
 const allowedOrigins = [
     'http://localhost:3000',
-    'https://pharma-empowerr.onrender.com',   // backend URL
-    'https://static-site-8s17.onrender.com'   // deployed frontend URL
+    'https://static-site-8s17.onrender.com',
+    'https://pharma-empowerr.onrender.com'
 ];
 
-app.use(cors({
-    origin: function(origin, callback) {
-        // allow requests with no origin (like mobile apps, Postman)
-        if(!origin) return callback(null, true);
-        if(allowedOrigins.indexOf(origin) === -1) {
-            const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
-    credentials: true
-}));
+app.use(
+    cors({
+        origin: (origin, callback) => {
+            if (!origin) return callback(null, true); // Postman / server-to-server
+            if (allowedOrigins.includes(origin)) {
+                return callback(null, true);
+            }
+            return callback(new Error('Not allowed by CORS'));
+        },
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization']
+    })
+);
 
+// 🔥 REQUIRED for PUT/DELETE requests
+app.options('*', cors());
+
+/* ================= MIDDLEWARE ================= */
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -71,12 +77,15 @@ app.use('/api/sessions', sessionRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/community', communityRoutes);
+app.use('/api/admin/community', communityAdminRoutes);
 app.use('/api/pages', require('./routes/pageRoutes'));
-app.use('/api/admin/community', require('./routes/communityAdminRoutes'));
 
-/* ================= HEALTH CHECK ================= */
+/* ================= HEALTH ================= */
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'OK', env: process.env.NODE_ENV || 'local' });
+    res.json({
+        status: 'OK',
+        env: process.env.NODE_ENV || 'local'
+    });
 });
 
 /* ================= SERVER ================= */
