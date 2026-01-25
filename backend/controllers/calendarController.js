@@ -1,66 +1,108 @@
-// controller/calendarController.js
+const pool = require('../config/db');
+
+/* ================= USER: CREATE REQUEST ================= */
 exports.createRequest = async (req, res) => {
-    const { booking_date, booking_type, notes } = req.body;
-    const user = req.user || null; // optional for now
+  const { booking_date, booking_type, notes } = req.body;
+  const user = req.user; // optional auth support
 
-    try {
-        await pool.execute(
-            `INSERT INTO calendar_requests 
-             (user_id, user_name, booking_date, booking_type, notes)
-             VALUES (?, ?, ?, ?, ?)`,
-            [
-                user?.id || null,
-                user?.full_name || 'Guest User',
-                booking_date,
-                booking_type,
-                notes
-            ]
-        );
+  try {
+    await pool.execute(
+      `INSERT INTO calendar_requests 
+       (user_id, booking_date, booking_type, notes, status)
+       VALUES (?, ?, ?, ?, 'pending')`,
+      [
+        user?.id || null,
+        booking_date,
+        booking_type,
+        notes || ''
+      ]
+    );
 
-        res.status(201).json({ message: 'Booking request submitted' });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+    res.status(201).json({ message: 'Booking request submitted' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to create request' });
+  }
 };
 
+/* ================= ADMIN: GET ALL REQUESTS ================= */
 exports.getAllRequests = async (req, res) => {
-    try {
-        const [rows] = await pool.execute(
-            `SELECT * FROM calendar_requests ORDER BY created_at DESC`
-        );
-        res.json(rows);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+  try {
+    const [rows] = await pool.execute(`
+      SELECT 
+        cr.id,
+        cr.booking_date,
+        cr.booking_type,
+        cr.notes,
+        cr.status,
+        cr.created_at,
+        u.full_name,
+        u.email
+      FROM calendar_requests cr
+      LEFT JOIN users u ON cr.user_id = u.id
+      ORDER BY cr.created_at DESC
+    `);
+
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to load requests' });
+  }
 };
 
+/* ================= ADMIN: UPDATE STATUS ================= */
 exports.updateStatus = async (req, res) => {
-    const { id, status } = req.body; // status = approved | rejected
+  const { id, status } = req.body;
 
-    try {
-        await pool.execute(
-            `UPDATE calendar_requests 
-             SET status = ? 
-             WHERE id = ?`,
-            [status, id]
-        );
+  if (!id || !['approved', 'rejected'].includes(status)) {
+    return res.status(400).json({ message: 'Invalid request data' });
+  }
 
-        res.json({ message: 'Status updated successfully' });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+  try {
+    await pool.execute(
+      `UPDATE calendar_requests SET status = ? WHERE id = ?`,
+      [status, id]
+    );
+
+    res.json({ message: 'Status updated successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to update status' });
+  }
 };
 
-exports.getApprovedBookings = async (req, res) => {
-    try {
-        const [rows] = await pool.execute(
-            `SELECT booking_date, booking_type 
-             FROM calendar_requests 
-             WHERE status = 'approved'`
-        );
+/* ================= USER: GET OWN REQUESTS ================= */
+exports.getUserRequests = async (req, res) => {
+  const { id } = req.params;
 
-        res.json(rows);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+  try {
+    const [rows] = await pool.execute(
+      `SELECT booking_date, booking_type, status
+       FROM calendar_requests
+       WHERE user_id = ?
+       ORDER BY booking_date ASC`,
+      [id]
+    );
+
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to fetch bookings' });
+  }
+};
+
+/* ================= CALENDAR: APPROVED BOOKINGS ================= */
+exports.getApprovedBookings = async (req, res) => {
+  try {
+    const [rows] = await pool.execute(
+      `SELECT booking_date, booking_type
+       FROM calendar_requests
+       WHERE status = 'approved'`
+    );
+
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to load approved bookings' });
+  }
 };
