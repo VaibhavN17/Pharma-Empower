@@ -1,9 +1,16 @@
 const pool = require('../config/db');
 
 /* ================= USER: CREATE REQUEST ================= */
+/* ================= USER: CREATE REQUEST ================= */
 exports.createRequest = async (req, res) => {
-  const { booking_date, booking_type, notes } = req.body;
-  const user = req.user; // optional auth
+  const { booking_date, booking_type, notes, user_id } = req.body;
+
+  // ✅ support both authenticated & non-auth flow
+  const finalUserId = req.user?.id || user_id;
+
+  if (!finalUserId || !booking_date || !booking_type) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
 
   try {
     await pool.execute(
@@ -11,7 +18,7 @@ exports.createRequest = async (req, res) => {
        (user_id, booking_date, booking_type, notes, status)
        VALUES (?, ?, ?, ?, 'pending')`,
       [
-        user?.id || null,
+        finalUserId,
         booking_date,
         booking_type,
         notes || ''
@@ -20,10 +27,11 @@ exports.createRequest = async (req, res) => {
 
     res.status(201).json({ message: 'Booking request submitted' });
   } catch (err) {
-    console.error(err);
+    console.error('CREATE REQUEST ERROR:', err);
     res.status(500).json({ message: 'Failed to create request' });
   }
 };
+
 
 /* ================= ADMIN: GET ALL REQUESTS ================= */
 exports.getAllRequests = async (req, res) => {
