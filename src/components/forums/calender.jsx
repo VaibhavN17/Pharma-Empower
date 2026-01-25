@@ -11,9 +11,9 @@ const Calendar = () => {
   const [notes, setNotes] = useState('');
   const [statusData, setStatusData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');  // For error display
+  const [error, setError] = useState('');
 
-  const intervalRef = useRef(null);  // For polling cleanup
+  const intervalRef = useRef(null);
 
   /* ================= GET AUTH TOKEN ================= */
   const getAuthHeaders = () => {
@@ -37,7 +37,7 @@ const Calendar = () => {
       const res = await fetch(`${API_BASE}/api/calendar/user/${user.id}`, {
         headers: {
           'Content-Type': 'application/json',
-          ...getAuthHeaders()  // 🔥 FIX: Add Bearer token to avoid CORS
+          ...getAuthHeaders()
         }
       });
 
@@ -49,7 +49,15 @@ const Calendar = () => {
       const data = await res.json();
 
       if (Array.isArray(data) && data.length > 0) {
-        setStatusData(data[data.length - 1]); // latest request
+        // 🔥 FIX: Find the latest approved request (prioritize showing link)
+        const approvedRequests = data.filter(req => req.status === 'approved');
+        if (approvedRequests.length > 0) {
+          // Show the most recent approved one
+          setStatusData(approvedRequests[approvedRequests.length - 1]);
+        } else {
+          // If no approved, show the latest overall (pending/rejected)
+          setStatusData(data[data.length - 1]);
+        }
       } else {
         setStatusData(null);
       }
@@ -64,12 +72,12 @@ const Calendar = () => {
   useEffect(() => {
     fetchStatus();
     
-    // 🔥 FIX: Auto-refresh every 30 seconds to check for admin updates (meeting_link will appear)
+    // Auto-refresh every 30 seconds
     intervalRef.current = setInterval(fetchStatus, 30000);
     
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current);  // Cleanup
+        clearInterval(intervalRef.current);
       }
     };
   }, []);
@@ -96,7 +104,7 @@ const Calendar = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...getAuthHeaders()  // 🔥 FIX: Add Bearer token
+          ...getAuthHeaders()
         },
         body: JSON.stringify(payload)
       });
@@ -106,7 +114,7 @@ const Calendar = () => {
       alert('Request submitted successfully');
       setBookingDate('');
       setNotes('');
-      fetchStatus();  // Refresh immediately
+      fetchStatus();
     } catch (err) {
       console.error('Submit error', err);
       alert('Failed to submit request');
@@ -142,7 +150,7 @@ const Calendar = () => {
                 <p><b>Time:</b> {statusData.session_time}</p>
               )}
 
-              {statusData.meeting_link && (  // 🔥 This will now show the link from DB
+              {statusData.meeting_link && (
                 <p>
                   <b>Join Link:</b>{' '}
                   <a
