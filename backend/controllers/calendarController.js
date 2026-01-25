@@ -3,7 +3,7 @@ const pool = require('../config/db');
 /* ================= USER: CREATE REQUEST ================= */
 exports.createRequest = async (req, res) => {
   const { booking_date, booking_type, notes } = req.body;
-  const user = req.user; // optional auth support
+  const user = req.user; // optional auth
 
   try {
     await pool.execute(
@@ -35,6 +35,8 @@ exports.getAllRequests = async (req, res) => {
         cr.booking_type,
         cr.notes,
         cr.status,
+        cr.session_time,
+        cr.meeting_link,
         cr.created_at,
         u.full_name,
         u.email
@@ -50,9 +52,9 @@ exports.getAllRequests = async (req, res) => {
   }
 };
 
-/* ================= ADMIN: UPDATE STATUS ================= */
+/* ================= ADMIN: UPDATE STATUS + TIME + LINK ================= */
 exports.updateStatus = async (req, res) => {
-  const { id, status } = req.body;
+  const { id, status, session_time, meeting_link } = req.body;
 
   if (!id || !['approved', 'rejected'].includes(status)) {
     return res.status(400).json({ message: 'Invalid request data' });
@@ -60,11 +62,21 @@ exports.updateStatus = async (req, res) => {
 
   try {
     await pool.execute(
-      `UPDATE calendar_requests SET status = ? WHERE id = ?`,
-      [status, id]
+      `UPDATE calendar_requests 
+       SET 
+         status = ?, 
+         session_time = ?, 
+         meeting_link = ?
+       WHERE id = ?`,
+      [
+        status,
+        status === 'approved' ? session_time : null,
+        status === 'approved' ? meeting_link : null,
+        id
+      ]
     );
 
-    res.json({ message: 'Status updated successfully' });
+    res.json({ message: 'Request updated successfully' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Failed to update status' });
@@ -77,7 +89,12 @@ exports.getUserRequests = async (req, res) => {
 
   try {
     const [rows] = await pool.execute(
-      `SELECT booking_date, booking_type, status
+      `SELECT 
+         booking_date,
+         booking_type,
+         status,
+         session_time,
+         meeting_link
        FROM calendar_requests
        WHERE user_id = ?
        ORDER BY booking_date ASC`,
@@ -95,7 +112,11 @@ exports.getUserRequests = async (req, res) => {
 exports.getApprovedBookings = async (req, res) => {
   try {
     const [rows] = await pool.execute(
-      `SELECT booking_date, booking_type
+      `SELECT 
+         booking_date,
+         booking_type,
+         session_time,
+         meeting_link
        FROM calendar_requests
        WHERE status = 'approved'`
     );
