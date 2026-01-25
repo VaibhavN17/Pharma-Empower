@@ -49,11 +49,19 @@ const Calendar = () => {
       const data = await res.json();
 
       if (Array.isArray(data) && data.length > 0) {
-        // 🔥 FIX: Find the latest approved request (prioritize showing link)
+        // 🔥 FIX: Find approved requests
         const approvedRequests = data.filter(req => req.status === 'approved');
+        
         if (approvedRequests.length > 0) {
-          // Show the most recent approved one
-          setStatusData(approvedRequests[approvedRequests.length - 1]);
+          // Prioritize the most recent approved request with a meeting_link
+          const withLink = approvedRequests.filter(req => req.meeting_link);
+          if (withLink.length > 0) {
+            // Show the latest one with a link
+            setStatusData(withLink[withLink.length - 1]);
+          } else {
+            // If none have a link, show the latest approved
+            setStatusData(approvedRequests[approvedRequests.length - 1]);
+          }
         } else {
           // If no approved, show the latest overall (pending/rejected)
           setStatusData(data[data.length - 1]);
