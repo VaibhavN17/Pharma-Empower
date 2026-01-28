@@ -137,4 +137,9 @@ export const dashboardAPI = {
   getStats: () => api.get('/api/admin/dashboard/stats'),
 };
 
+
+export const adminAuthAPI = {
+  changePassword: (data) =>
+    api.put('/api/auth/admin/change-password', data),
+};
 export default api;
