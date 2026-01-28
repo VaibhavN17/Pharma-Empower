@@ -66,7 +66,13 @@ const AdminLayout = () => {
 
                     <NavLink to="/admin/calendar-requests" className="sidebar-link">
     Expert Scheduling
+</NavLink> 
+
+
+<NavLink to="/admin/change-password" className="sidebar-link">
+  Change Password
 </NavLink>
+
 
 
                     <NavLink to="/admin/access-control" className="sidebar-link">
