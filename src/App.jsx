@@ -3,7 +3,7 @@ import './App.css';
 
 /* ===== COMMON COMPONENTS ===== */
 import AdminCalendarRequests from './components/Admin/AdminCalendarRequests';
-import ChangePassword from './components/Admin/ChangePassword';
+import ChangePassword from './components/Admin/changePassword';
 
 import Navbar from './components/navbar';
 import NotificationBanner from './components/NotificationBanner';
