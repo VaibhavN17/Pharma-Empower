@@ -1,0 +1,405 @@
+/* Pharma Academy Aesthetics - Classy, Clean & Consistent */
+/* Matching Navbar Font & Reducing Boldness */
+
+.academy-page {
+    background-color: transparent;
+    /* Transparent to show global body pattern */
+    font-family: var(--font-main);
+    color: var(--text-dark);
+    padding-bottom: 80px;
+    overflow-x: hidden;
+}
+
+/* HERO SECTION - MATCHING PROFESSIONAL NETWORK */
+.academy-hero {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto 30px;
+    background: linear-gradient(135deg, #071D49 0%, #004BB5 100%);
+    color: white;
+    padding: 50px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 2;
+}
+
+.hero-icon svg {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+    animation: float 6s ease-in-out infinite;
+    opacity: 1;
+    stroke: #ffffff;
+    /* Make icon white */
+}
+
+.academy-hero h1 {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    color: white;
+    font-weight: 700;
+    max-width: 900px;
+    letter-spacing: -0.5px;
+}
+
+.hero-subtext {
+    font-size: 1.3rem;
+    color: #a3caff;
+    font-weight: 500;
+    margin-bottom: 0;
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+/* Divider specific to this look */
+.academy-hero-divider {
+    width: 80px;
+    height: 4px;
+    background: #8A2ECC;
+    margin: 25px 0;
+    border-radius: 2px;
+}
+
+.hero-login-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    /* Contrast against dark bg */
+    color: var(--primary-color);
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hero-login-btn:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    color: var(--secondary-color);
+}
+
+/* INTRO TEXT */
+.academy-intro-text {
+    max-width: 850px;
+    margin: 0 auto 60px;
+    padding: 20px 20px;
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #4b5563;
+}
+
+.academy-intro-text p {
+    margin-bottom: 25px;
+}
+
+/* CAREER STAGES SECTION */
+.career-stages-section {
+    padding: 20px 20px 80px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 50px;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #0a2d52;
+    opacity: 0.3;
+    border-radius: 2px;
+}
+
+.stages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 10px;
+}
+
+/* CARD STYLING */
+.stage-card {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 12px;
+    /* Softer radius */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Top accent line */
+.stage-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    /* Thinner accent */
+    transition: height 0.3s ease;
+}
+
+.blue-border::before {
+    background: #0066F5;
+}
+
+.purple-border::before {
+    background: #6c5ce7;
+}
+
+.green-border::before {
+    background: #00b894;
+}
+
+.stage-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+}
+
+.stage-header {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.stage-num {
+    font-size: 2.5rem;
+    font-weight: 700;
+    /* Reduced from 900 */
+    color: rgba(10, 45, 82, 0.05);
+    /* Very subtle navy */
+    position: absolute;
+    top: -25px;
+    right: -10px;
+    line-height: 1;
+}
+
+.stage-card h3 {
+    font-size: 1.4rem;
+    color: #0a2d52;
+    margin: 10px 0 5px;
+    font-weight: 600;
+}
+
+.stage-role {
+    font-size: 0.85rem;
+    color: #636e72;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.stage-desc {
+    margin-bottom: 25px;
+    line-height: 1.6;
+    color: #555;
+    font-size: 1rem;
+    flex-grow: 1;
+}
+
+.stage-details {
+    background: #fdfdfd;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.stage-details h4 {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    color: #0a2d52;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stage-details ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.stage-details ul li {
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 0.9rem;
+    position: relative;
+    padding-left: 18px;
+}
+
+.stage-details ul li::before {
+    content: '•';
+    color: #005691;
+    /* AbbVie Blue */
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* ANIMATIONS */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Entrance Animations */
+.stage-card {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.stage-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.stage-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.stage-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .academy-hero h1 {
+        font-size: 2.4rem;
+    }
+
+    .stages-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2x2 Form as requested */
+        max-width: 100%;
+        margin: 0 auto;
+        gap: 20px;
+    }
+
+    /* Make the 3rd card span full width for balance */
+    .stage-card:last-child:nth-child(odd) {
+        grid-column: span 2;
+        max-width: 600px;
+        /* Constrain width of the single centered card */
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .stages-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stage-card:last-child:nth-child(odd) {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .academy-hero {
+        padding: 60px 20px 40px;
+    }
+
+    .academy-hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero-subtext {
+        font-size: 1rem;
+    }
+
+    .academy-intro-text {
+        padding: 15px;
+        margin-bottom: 40px;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .stages-grid {
+        padding: 5px;
+        gap: 15px;
+    }
+
+    .stage-card {
+        padding: 20px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Optional: On extremely small screens, ease back to 1 col if 2 is unusable, 
+       but user requested 2x2 for mobile, so we try to keep 2 unless really broken.
+       Actually, standard mobile width is ~360-390px. Two columns of ~160px is tight but doable with small font.
+       Let's stick to the user's request for 2x2 "mobile view". */
+
+    .stages-grid {
+        gap: 10px;
+    }
+
+    .stage-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .stage-role {
+        font-size: 0.7rem;
+    }
+}

@@ -1,0 +1,264 @@
+/* Contact Us Page Styles */
+
+/* 1. Container with subtle gradient background */
+.contact-container {
+    min-height: 100vh;
+    padding: 100px 20px 60px;
+    /* Top padding clears fixed navbar */
+    background: linear-gradient(135deg, #f0f4f8 0%, #eef6fc 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* 2. Header Styling - Classy & Elegant */
+.contact-header {
+    text-align: center;
+    margin-bottom: 50px;
+    max-width: 700px;
+    animation: fadeDown 0.8s ease-out;
+}
+
+.contact-header h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    /* Primary color */
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    text-transform: capitalize;
+}
+
+.contact-header p {
+    font-size: 1.15rem;
+    color: #555;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+/* 3. Form Card - Floating effect with glassmorphism hint */
+.contact-form-wrapper {
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    animation: fadeUp 0.8s ease-out 0.2s backwards;
+    /* Slight delay for staggered effect */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative subtle top border line */
+.contact-form-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #071D49, #8A2ECC);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    transition: color 0.3s;
+}
+
+.required {
+    color: #e74c3c;
+    margin-left: 3px;
+}
+
+.optional {
+    font-weight: 400;
+    color: #999;
+    font-size: 0.8rem;
+    margin-left: 5px;
+    font-style: italic;
+}
+
+/* 4. Input Fields - Modern, clean, better focus state */
+.form-group input,
+.form-group textarea {
+    padding: 14px 16px;
+    border: 1px solid #e1e5ea;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fcfcfc;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    font-family: inherit;
+    color: #333;
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+    border-color: #b0c4de;
+    background-color: #fff;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #0085ca;
+    /* Secondary color */
+    box-shadow: 0 4px 12px rgba(0, 133, 202, 0.1);
+    background-color: #fff;
+    outline: none;
+    transform: translateY(-2px);
+    /* Subtle lift */
+}
+
+.form-group:focus-within label {
+    color: #005691;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 140px;
+    line-height: 1.5;
+}
+
+/* 5. Submit Button - Classy gradient & hover effect */
+.submit-btn {
+    background: linear-gradient(135deg, #0066F5 0%, #004BB5 100%);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    /* Pill shape for classy look */
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+    margin-top: 15px;
+    box-shadow: 0 6px 15px rgba(0, 86, 145, 0.25);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #004BB5 0%, #0066F5 100%);
+    /* Reverse gradient */
+    z-index: -1;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.submit-btn:hover::before {
+    opacity: 1;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 86, 145, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 86, 145, 0.2);
+}
+
+/* Animations */
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-container {
+        padding: 80px 20px 40px;
+    }
+
+    .contact-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .contact-form-wrapper {
+        padding: 30px 25px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        text-align: center;
+        border-radius: 12px;
+        /* Less rounded on mobile for fuller feel */
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .contact-header p {
+        font-size: 1rem;
+    }
+
+    .contact-form-wrapper {
+        padding: 25px 20px;
+        box-shadow: none;
+        /* Simplifies look on very small screens */
+        background-color: transparent;
+        /* Blends better */
+        border: none;
+    }
+
+    .contact-container {
+        background: #fff;
+        /* Plain background for mobile logic simplicity */
+    }
+
+    .form-group input,
+    .form-group textarea {
+        background-color: #f7f9fc;
+        border: 1px solid #eee;
+    }
+}
